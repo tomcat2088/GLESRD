@@ -17,6 +17,9 @@
 		8E7EA6311D9E2BBE0099989A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EA62F1D9E2BBE0099989A /* LaunchScreen.storyboard */; };
 		8E7EA63C1D9E2BBE0099989A /* OpenESRDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA63B1D9E2BBE0099989A /* OpenESRDTests.m */; };
 		8E7EA6471D9E2BBE0099989A /* OpenESRDUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA6461D9E2BBE0099989A /* OpenESRDUITests.m */; };
+		8E7EA6561D9E2CE90099989A /* Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA6551D9E2CE90099989A /* Geometry.m */; };
+		8E7EA69C1D9E41610099989A /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EA69B1D9E41610099989A /* texture.png */; };
+		8E7EA69F1D9E436B0099989A /* UIImage+GL.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA69E1D9E436B0099989A /* UIImage+GL.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,12 @@
 		8E7EA6421D9E2BBE0099989A /* OpenESRDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenESRDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7EA6461D9E2BBE0099989A /* OpenESRDUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenESRDUITests.m; sourceTree = "<group>"; };
 		8E7EA6481D9E2BBE0099989A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E7EA6541D9E2CE90099989A /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
+		8E7EA6551D9E2CE90099989A /* Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geometry.m; sourceTree = "<group>"; };
+		8E7EA6571D9E2EED0099989A /* GeometryDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeometryDefines.h; sourceTree = "<group>"; };
+		8E7EA69B1D9E41610099989A /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
+		8E7EA69D1D9E436B0099989A /* UIImage+GL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GL.h"; sourceTree = "<group>"; };
+		8E7EA69E1D9E436B0099989A /* UIImage+GL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GL.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +114,7 @@
 		8E7EA61C1D9E2BBE0099989A /* OpenESRD */ = {
 			isa = PBXGroup;
 			children = (
+				8E7EA69B1D9E41610099989A /* texture.png */,
 				8E7EA6201D9E2BBE0099989A /* AppDelegate.h */,
 				8E7EA6211D9E2BBE0099989A /* AppDelegate.m */,
 				8E7EA6231D9E2BBE0099989A /* Shader.fsh */,
@@ -116,6 +126,11 @@
 				8E7EA62F1D9E2BBE0099989A /* LaunchScreen.storyboard */,
 				8E7EA6321D9E2BBE0099989A /* Info.plist */,
 				8E7EA61D1D9E2BBE0099989A /* Supporting Files */,
+				8E7EA6541D9E2CE90099989A /* Geometry.h */,
+				8E7EA6551D9E2CE90099989A /* Geometry.m */,
+				8E7EA6571D9E2EED0099989A /* GeometryDefines.h */,
+				8E7EA69D1D9E436B0099989A /* UIImage+GL.h */,
+				8E7EA69E1D9E436B0099989A /* UIImage+GL.m */,
 			);
 			path = OpenESRD;
 			sourceTree = "<group>";
@@ -258,6 +273,7 @@
 				8E7EA62C1D9E2BBE0099989A /* Main.storyboard in Resources */,
 				8E7EA6261D9E2BBE0099989A /* Shader.vsh in Resources */,
 				8E7EA62E1D9E2BBE0099989A /* Assets.xcassets in Resources */,
+				8E7EA69C1D9E41610099989A /* texture.png in Resources */,
 				8E7EA6311D9E2BBE0099989A /* LaunchScreen.storyboard in Resources */,
 				8E7EA6241D9E2BBE0099989A /* Shader.fsh in Resources */,
 			);
@@ -284,7 +300,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E7EA69F1D9E436B0099989A /* UIImage+GL.m in Sources */,
 				8E7EA6221D9E2BBE0099989A /* AppDelegate.m in Sources */,
+				8E7EA6561D9E2CE90099989A /* Geometry.m in Sources */,
 				8E7EA6291D9E2BBE0099989A /* GameViewController.m in Sources */,
 				8E7EA61F1D9E2BBE0099989A /* main.m in Sources */,
 			);
