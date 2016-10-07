@@ -8,96 +8,101 @@
 
 #import "Geometry.h"
 #import "UIImage+GL.h"
+#import "ObjFile.h"
+#import "GeometryDefines.h"
 
-@interface Geometry()
+@interface Geometry () {
+    int uniforms[NUM_UNIFORMS];
+    GLfloat rotation;
+}
 
-@property (assign, nonatomic) GLuint program;
 @property (assign, nonatomic) GLsizei indiceCount;
 @property (assign, nonatomic) GLsizei vertexStride;
 
 @property (assign, nonatomic) GLuint texture;
+@property (strong, nonatomic) ObjFile *obj;
 @end
 
 @implementation Geometry
-- (instancetype)initWithProgram:(GLuint)program
-{
+
+- (instancetype)initWithWaveFrontFilePath:(NSString *)file {
     self = [super init];
     if (self) {
-        self.program = program;
+        self.glProgram = [[GLProgram alloc]initWithVertexShaderFileName:@"Shader" fragmentShaderFileName:@"Shader"];
         [self createTexture];
-        [self setupVBO];
+
+        self.obj = [ObjFile new];
         [self setupVAO];
     }
     return self;
 }
 
-- (void)setupVBO {
-    const GLfloat vertex[4][9] = {
-        {-0.5f,-0.5f,0.0f,  0.9f,0.0f,0.0f,1.0f,  0,0},
-        {-0.5f,0.5f,0.0f,  0.0f,0.9f,0.0f,1.0f,  0,1},
-        {0.5f,0.5f,0.0f,  0.0f,0.0f,0.9f,1.0f,  1,1},
-        {0.5f,-0.5f,0.0f,  0.4f,0.4f,0.4f,1.0f,  1,0}
-    };
-    glGenBuffers(1, &_vertexVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, self.vertexVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    
-    const GLuint indice[2][3] = {
-        0,1,2,
-        2,3,0
-    };
-    glGenBuffers(1, &_indiceVBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.indiceVBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indice), indice, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    
-    self.indiceCount = sizeof(indice) / sizeof(GLuint);
-    self.vertexStride = sizeof(vertex[0]);
-}
-
 - (void)setupVAO {
     glGenVertexArraysOES(1, &_vao);
     glBindVertexArrayOES(self.vao);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, self.vertexVBO);
-    
-    GLuint positionLocation = glGetAttribLocation(self.program, "position");
+
+    glBindBuffer(GL_ARRAY_BUFFER, self.obj.vertexVBO);
+
+    GLuint positionLocation = glGetAttribLocation(self.glProgram.value, "position");
     glEnableVertexAttribArray(positionLocation);
-    glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, self.vertexStride, 0);
-    
-    GLuint colorLocation = glGetAttribLocation(self.program, "color");
-    glEnableVertexAttribArray(colorLocation);
-    glVertexAttribPointer(colorLocation, 4, GL_FLOAT, GL_FALSE, self.vertexStride, BUFFER_OFFSET(3 * sizeof(GLfloat)));
-    
-    GLuint uvLocation = glGetAttribLocation(self.program, "uv");
+    glVertexAttribPointer(positionLocation, 3, GL_FLOAT, GL_FALSE, self.obj.vertexStride, 0);
+
+    GLuint normalLocation = glGetAttribLocation(self.glProgram.value, "normal");
+    glEnableVertexAttribArray(normalLocation);
+    glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_FALSE, self.obj.vertexStride, BUFFER_OFFSET(3 * sizeof(GLfloat)));
+
+    GLuint uvLocation = glGetAttribLocation(self.glProgram.value, "uv");
     glEnableVertexAttribArray(uvLocation);
-    glVertexAttribPointer(uvLocation, 2, GL_FLOAT, GL_FALSE, self.vertexStride, BUFFER_OFFSET(7 * sizeof(GLfloat)));
-    
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.indiceVBO);
-    
+    glVertexAttribPointer(uvLocation, 2, GL_FLOAT, GL_FALSE, self.obj.vertexStride, BUFFER_OFFSET(6 * sizeof(GLfloat)));
+
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.obj.indiceVBO);
+
     glBindTexture(GL_TEXTURE_2D, self.texture);
-    
+
     glBindVertexArrayOES(0);
 }
 
 - (void)createTexture {
-    GLsizei width,height;
+    GLsizei width, height;
     GLubyte *textureData = [UIImage dataFromImage:@"texture.png" width:&width height:&height];
-    
+
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGenTextures(1, &_texture);
     glBindTexture(GL_TEXTURE_2D, _texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D,0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 - (void)draw {
+    glUseProgram(self.glProgram.value);
+
+    glUniformMatrix4fv([self.glProgram uniform:UNIFORM_VIEWPROJECTION], 1, 0, self.viewProjection.m);
+    glUniformMatrix4fv([self.glProgram uniform:UNIFORM_MODEL_MATRIX], 1, 0, self.modelMatrix.m);
+    glUniformMatrix3fv([self.glProgram uniform:UNIFORM_NORMAL_MATRIX], 1, 0, self.normalMatrix.m);
+
     glBindVertexArrayOES(self.vao);
-    glDrawElements(GL_TRIANGLES, self.indiceCount,GL_UNSIGNED_INT, 0);
+    //glDrawElements(GL_TRIANGLES, self.obj.indiceCount, GL_UNSIGNED_INT, 0);
+    glDrawArrays(GL_TRIANGLES, 0, self.obj.vertexCount);
     glBindVertexArrayOES(0);
+}
+
+- (void)update:(NSTimeInterval)interval {
+    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -13.0f);
+    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, 0, 0.0f, 1.0f, 0.0f);
+
+    // Compute the model view matrix for the object rendered with GLKit
+    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
+    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 1.0f, 1.0f, 1.0f);
+    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+
+    GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
+
+    self.normalMatrix = normalMatrix;
+    self.modelMatrix = modelViewMatrix;
+
+    rotation += interval * 0.5f;
 }
 
 @end

@@ -9,16 +9,15 @@
 #ifndef GeometryDefines_h
 #define GeometryDefines_h
 
-enum
-{
-    UNIFORM_MODELVIEWPROJECTION_MATRIX,
+enum {
+    UNIFORM_VIEWPROJECTION,
+    UNIFORM_MODEL_MATRIX,
     UNIFORM_NORMAL_MATRIX,
     NUM_UNIFORMS
 };
 
 // Attribute index.
-enum
-{
+enum {
     ATTRIB_VERTEX,
     ATTRIB_NORMAL,
     NUM_ATTRIBUTES

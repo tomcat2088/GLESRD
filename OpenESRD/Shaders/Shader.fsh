@@ -8,10 +8,11 @@
 
 varying lowp vec4 colorVarying;
 varying lowp vec2 uvVarying;
+varying highp float lightStrength;
 
 uniform sampler2D s_texture;
 
 void main()
 {
-    gl_FragColor = texture2D( s_texture,uvVarying ) + colorVarying;
+    gl_FragColor = colorVarying * 0.4 + texture2D( s_texture,uvVarying ) * lightStrength* 0.6;
 }

@@ -20,6 +20,17 @@
 		8E7EA6561D9E2CE90099989A /* Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA6551D9E2CE90099989A /* Geometry.m */; };
 		8E7EA69C1D9E41610099989A /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EA69B1D9E41610099989A /* texture.png */; };
 		8E7EA69F1D9E436B0099989A /* UIImage+GL.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA69E1D9E436B0099989A /* UIImage+GL.m */; };
+		D309437B1DA698630077D87B /* tiny_obj_loader.cc in Sources */ = {isa = PBXBuildFile; fileRef = D30943791DA698630077D87B /* tiny_obj_loader.cc */; };
+		D309437E1DA698A40077D87B /* ObjFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = D309437D1DA698A40077D87B /* ObjFile.mm */; };
+		D30943811DA69A060077D87B /* cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = D309437F1DA69A060077D87B /* cube.mtl */; };
+		D30943821DA69A060077D87B /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = D30943801DA69A060077D87B /* cube.obj */; };
+		D30943841DA6A5C20077D87B /* cube2.obj in Resources */ = {isa = PBXBuildFile; fileRef = D30943831DA6A5C20077D87B /* cube2.obj */; };
+		D30943861DA6ADFA0077D87B /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = D30943851DA6ADFA0077D87B /* plane.obj */; };
+		D30943881DA7A4A20077D87B /* cube2.scn in Resources */ = {isa = PBXBuildFile; fileRef = D30943871DA7A4A20077D87B /* cube2.scn */; };
+		D30943CD1DA7AC700077D87B /* cube3.obj in Resources */ = {isa = PBXBuildFile; fileRef = D30943CC1DA7AC700077D87B /* cube3.obj */; };
+		D30943D11DA7DA2F0077D87B /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = D30943D01DA7DA2F0077D87B /* GLProgram.m */; };
+		D30943D31DA7DF950077D87B /* unuse in Resources */ = {isa = PBXBuildFile; fileRef = D30943D21DA7DF950077D87B /* unuse */; };
+		D30943D61DA7E0D50077D87B /* GLWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = D30943D51DA7E0D50077D87B /* GLWorld.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,12 +69,27 @@
 		8E7EA6421D9E2BBE0099989A /* OpenESRDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenESRDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7EA6461D9E2BBE0099989A /* OpenESRDUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenESRDUITests.m; sourceTree = "<group>"; };
 		8E7EA6481D9E2BBE0099989A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8E7EA6541D9E2CE90099989A /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
-		8E7EA6551D9E2CE90099989A /* Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geometry.m; sourceTree = "<group>"; };
-		8E7EA6571D9E2EED0099989A /* GeometryDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeometryDefines.h; sourceTree = "<group>"; };
+		8E7EA6541D9E2CE90099989A /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Geometry.h; path = ../Geometry.h; sourceTree = "<group>"; };
+		8E7EA6551D9E2CE90099989A /* Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Geometry.m; path = ../Geometry.m; sourceTree = "<group>"; };
+		8E7EA6571D9E2EED0099989A /* GeometryDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GeometryDefines.h; path = ../GeometryDefines.h; sourceTree = "<group>"; };
 		8E7EA69B1D9E41610099989A /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
 		8E7EA69D1D9E436B0099989A /* UIImage+GL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GL.h"; sourceTree = "<group>"; };
 		8E7EA69E1D9E436B0099989A /* UIImage+GL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GL.m"; sourceTree = "<group>"; };
+		D30943791DA698630077D87B /* tiny_obj_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
+		D309437A1DA698630077D87B /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
+		D309437C1DA698A40077D87B /* ObjFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjFile.h; sourceTree = "<group>"; };
+		D309437D1DA698A40077D87B /* ObjFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjFile.mm; sourceTree = "<group>"; };
+		D309437F1DA69A060077D87B /* cube.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cube.mtl; path = objloader/cube.mtl; sourceTree = "<group>"; };
+		D30943801DA69A060077D87B /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cube.obj; path = objloader/cube.obj; sourceTree = "<group>"; };
+		D30943831DA6A5C20077D87B /* cube2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cube2.obj; path = objloader/cube2.obj; sourceTree = "<group>"; };
+		D30943851DA6ADFA0077D87B /* plane.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = plane.obj; path = objloader/plane.obj; sourceTree = "<group>"; };
+		D30943871DA7A4A20077D87B /* cube2.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = cube2.scn; path = objloader/cube2.scn; sourceTree = "<group>"; };
+		D30943CC1DA7AC700077D87B /* cube3.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cube3.obj; path = objloader/cube3.obj; sourceTree = "<group>"; };
+		D30943CF1DA7DA2F0077D87B /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
+		D30943D01DA7DA2F0077D87B /* GLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLProgram.m; sourceTree = "<group>"; };
+		D30943D21DA7DF950077D87B /* unuse */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = unuse; sourceTree = "<group>"; };
+		D30943D41DA7E0D50077D87B /* GLWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLWorld.h; sourceTree = "<group>"; };
+		D30943D51DA7E0D50077D87B /* GLWorld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLWorld.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +140,8 @@
 		8E7EA61C1D9E2BBE0099989A /* OpenESRD */ = {
 			isa = PBXGroup;
 			children = (
+				D30943CE1DA7D9FC0077D87B /* models */,
+				D30943781DA698630077D87B /* objloader */,
 				8E7EA69B1D9E41610099989A /* texture.png */,
 				8E7EA6201D9E2BBE0099989A /* AppDelegate.h */,
 				8E7EA6211D9E2BBE0099989A /* AppDelegate.m */,
@@ -126,9 +154,6 @@
 				8E7EA62F1D9E2BBE0099989A /* LaunchScreen.storyboard */,
 				8E7EA6321D9E2BBE0099989A /* Info.plist */,
 				8E7EA61D1D9E2BBE0099989A /* Supporting Files */,
-				8E7EA6541D9E2CE90099989A /* Geometry.h */,
-				8E7EA6551D9E2CE90099989A /* Geometry.m */,
-				8E7EA6571D9E2EED0099989A /* GeometryDefines.h */,
 				8E7EA69D1D9E436B0099989A /* UIImage+GL.h */,
 				8E7EA69E1D9E436B0099989A /* UIImage+GL.m */,
 			);
@@ -159,6 +184,38 @@
 				8E7EA6481D9E2BBE0099989A /* Info.plist */,
 			);
 			path = OpenESRDUITests;
+			sourceTree = "<group>";
+		};
+		D30943781DA698630077D87B /* objloader */ = {
+			isa = PBXGroup;
+			children = (
+				D30943791DA698630077D87B /* tiny_obj_loader.cc */,
+				D309437A1DA698630077D87B /* tiny_obj_loader.h */,
+				D309437C1DA698A40077D87B /* ObjFile.h */,
+				D309437D1DA698A40077D87B /* ObjFile.mm */,
+				8E7EA6571D9E2EED0099989A /* GeometryDefines.h */,
+				8E7EA6541D9E2CE90099989A /* Geometry.h */,
+				8E7EA6551D9E2CE90099989A /* Geometry.m */,
+				D30943CF1DA7DA2F0077D87B /* GLProgram.h */,
+				D30943D01DA7DA2F0077D87B /* GLProgram.m */,
+				D30943D21DA7DF950077D87B /* unuse */,
+				D30943D41DA7E0D50077D87B /* GLWorld.h */,
+				D30943D51DA7E0D50077D87B /* GLWorld.m */,
+			);
+			path = objloader;
+			sourceTree = "<group>";
+		};
+		D30943CE1DA7D9FC0077D87B /* models */ = {
+			isa = PBXGroup;
+			children = (
+				D30943CC1DA7AC700077D87B /* cube3.obj */,
+				D30943851DA6ADFA0077D87B /* plane.obj */,
+				D30943831DA6A5C20077D87B /* cube2.obj */,
+				D30943871DA7A4A20077D87B /* cube2.scn */,
+				D309437F1DA69A060077D87B /* cube.mtl */,
+				D30943801DA69A060077D87B /* cube.obj */,
+			);
+			name = models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,12 +327,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30943CD1DA7AC700077D87B /* cube3.obj in Resources */,
+				D30943841DA6A5C20077D87B /* cube2.obj in Resources */,
+				D30943821DA69A060077D87B /* cube.obj in Resources */,
+				D30943861DA6ADFA0077D87B /* plane.obj in Resources */,
 				8E7EA62C1D9E2BBE0099989A /* Main.storyboard in Resources */,
 				8E7EA6261D9E2BBE0099989A /* Shader.vsh in Resources */,
 				8E7EA62E1D9E2BBE0099989A /* Assets.xcassets in Resources */,
+				D30943881DA7A4A20077D87B /* cube2.scn in Resources */,
 				8E7EA69C1D9E41610099989A /* texture.png in Resources */,
 				8E7EA6311D9E2BBE0099989A /* LaunchScreen.storyboard in Resources */,
 				8E7EA6241D9E2BBE0099989A /* Shader.fsh in Resources */,
+				D30943D31DA7DF950077D87B /* unuse in Resources */,
+				D30943811DA69A060077D87B /* cube.mtl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,8 +365,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E7EA69F1D9E436B0099989A /* UIImage+GL.m in Sources */,
+				D309437E1DA698A40077D87B /* ObjFile.mm in Sources */,
+				D30943D11DA7DA2F0077D87B /* GLProgram.m in Sources */,
 				8E7EA6221D9E2BBE0099989A /* AppDelegate.m in Sources */,
+				D309437B1DA698630077D87B /* tiny_obj_loader.cc in Sources */,
 				8E7EA6561D9E2CE90099989A /* Geometry.m in Sources */,
+				D30943D61DA7E0D50077D87B /* GLWorld.m in Sources */,
 				8E7EA6291D9E2BBE0099989A /* GameViewController.m in Sources */,
 				8E7EA61F1D9E2BBE0099989A /* main.m in Sources */,
 			);
@@ -540,6 +608,7 @@
 				8E7EA64D1D9E2BBE0099989A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8E7EA64E1D9E2BBE0099989A /* Build configuration list for PBXNativeTarget "OpenESRDTests" */ = {
 			isa = XCConfigurationList;
@@ -548,6 +617,7 @@
 				8E7EA6501D9E2BBE0099989A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8E7EA6511D9E2BBE0099989A /* Build configuration list for PBXNativeTarget "OpenESRDUITests" */ = {
 			isa = XCConfigurationList;
@@ -556,6 +626,7 @@
 				8E7EA6531D9E2BBE0099989A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
