@@ -7,7 +7,7 @@
 //
 
 #import "GLWorld.h"
-#import "Geometry.h"
+#import "GLGeometry.h"
 
 @interface GLWorld ()
 
@@ -30,6 +30,7 @@
 
         glkView.context = self.context;
         glkView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+     
         [EAGLContext setCurrentContext:self.context];
         glEnable(GL_DEPTH_TEST);
 
@@ -41,7 +42,7 @@
     return self;
 }
 
-- (void)addGeometry:(Geometry *)geometry {
+- (void)addGeometry:(GLGeometry *)geometry {
     [self.geometrys addObject:geometry];
 }
 
@@ -49,14 +50,14 @@
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    for (Geometry *geometry in self.geometrys) {
+    for (GLGeometry *geometry in self.geometrys) {
         geometry.viewProjection = self.viewProjection;
         [geometry draw];
     }
 }
 
 - (void)update:(NSTimeInterval)interval {
-    for (Geometry *geometry in self.geometrys) {
+    for (GLGeometry *geometry in self.geometrys) {
         [geometry update:interval];
     }
 }

@@ -6,12 +6,12 @@
 //  Copyright © 2016年 wangyang. All rights reserved.
 //
 
-#import "Geometry.h"
+#import "GLGeometry.h"
 #import "UIImage+GL.h"
 #import "ObjFile.h"
 #import "GeometryDefines.h"
 
-@interface Geometry () {
+@interface GLGeometry () {
     int uniforms[NUM_UNIFORMS];
     GLfloat rotation;
 }
@@ -21,9 +21,13 @@
 
 @property (assign, nonatomic) GLuint texture;
 @property (strong, nonatomic) ObjFile *obj;
+
+@property (assign, nonatomic) GLuint vertexVBO;
+@property (assign, nonatomic) GLuint indiceVBO;
+@property (assign, nonatomic) GLuint vao;
 @end
 
-@implementation Geometry
+@implementation GLGeometry
 
 - (instancetype)initWithWaveFrontFilePath:(NSString *)file {
     self = [super init];
@@ -70,8 +74,8 @@
     glGenTextures(1, &_texture);
     glBindTexture(GL_TEXTURE_2D, _texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 

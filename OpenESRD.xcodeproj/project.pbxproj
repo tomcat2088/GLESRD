@@ -17,9 +17,9 @@
 		8E7EA6311D9E2BBE0099989A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EA62F1D9E2BBE0099989A /* LaunchScreen.storyboard */; };
 		8E7EA63C1D9E2BBE0099989A /* OpenESRDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA63B1D9E2BBE0099989A /* OpenESRDTests.m */; };
 		8E7EA6471D9E2BBE0099989A /* OpenESRDUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA6461D9E2BBE0099989A /* OpenESRDUITests.m */; };
-		8E7EA6561D9E2CE90099989A /* Geometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA6551D9E2CE90099989A /* Geometry.m */; };
 		8E7EA69C1D9E41610099989A /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EA69B1D9E41610099989A /* texture.png */; };
 		8E7EA69F1D9E436B0099989A /* UIImage+GL.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA69E1D9E436B0099989A /* UIImage+GL.m */; };
+		8EE78E291DA88E2E00F611D5 /* GLGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE78E271DA88E2E00F611D5 /* GLGeometry.m */; };
 		D309437B1DA698630077D87B /* tiny_obj_loader.cc in Sources */ = {isa = PBXBuildFile; fileRef = D30943791DA698630077D87B /* tiny_obj_loader.cc */; };
 		D309437E1DA698A40077D87B /* ObjFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = D309437D1DA698A40077D87B /* ObjFile.mm */; };
 		D30943811DA69A060077D87B /* cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = D309437F1DA69A060077D87B /* cube.mtl */; };
@@ -69,12 +69,12 @@
 		8E7EA6421D9E2BBE0099989A /* OpenESRDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenESRDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7EA6461D9E2BBE0099989A /* OpenESRDUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenESRDUITests.m; sourceTree = "<group>"; };
 		8E7EA6481D9E2BBE0099989A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8E7EA6541D9E2CE90099989A /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Geometry.h; path = ../Geometry.h; sourceTree = "<group>"; };
-		8E7EA6551D9E2CE90099989A /* Geometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Geometry.m; path = ../Geometry.m; sourceTree = "<group>"; };
-		8E7EA6571D9E2EED0099989A /* GeometryDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GeometryDefines.h; path = ../GeometryDefines.h; sourceTree = "<group>"; };
 		8E7EA69B1D9E41610099989A /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
 		8E7EA69D1D9E436B0099989A /* UIImage+GL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GL.h"; sourceTree = "<group>"; };
 		8E7EA69E1D9E436B0099989A /* UIImage+GL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GL.m"; sourceTree = "<group>"; };
+		8EE78E261DA88E2E00F611D5 /* GLGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLGeometry.h; sourceTree = "<group>"; };
+		8EE78E271DA88E2E00F611D5 /* GLGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLGeometry.m; sourceTree = "<group>"; };
+		8EE78E281DA88E2E00F611D5 /* GeometryDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryDefines.h; sourceTree = "<group>"; };
 		D30943791DA698630077D87B /* tiny_obj_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
 		D309437A1DA698630077D87B /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
 		D309437C1DA698A40077D87B /* ObjFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjFile.h; sourceTree = "<group>"; };
@@ -189,13 +189,13 @@
 		D30943781DA698630077D87B /* objloader */ = {
 			isa = PBXGroup;
 			children = (
+				8EE78E261DA88E2E00F611D5 /* GLGeometry.h */,
+				8EE78E271DA88E2E00F611D5 /* GLGeometry.m */,
+				8EE78E281DA88E2E00F611D5 /* GeometryDefines.h */,
 				D30943791DA698630077D87B /* tiny_obj_loader.cc */,
 				D309437A1DA698630077D87B /* tiny_obj_loader.h */,
 				D309437C1DA698A40077D87B /* ObjFile.h */,
 				D309437D1DA698A40077D87B /* ObjFile.mm */,
-				8E7EA6571D9E2EED0099989A /* GeometryDefines.h */,
-				8E7EA6541D9E2CE90099989A /* Geometry.h */,
-				8E7EA6551D9E2CE90099989A /* Geometry.m */,
 				D30943CF1DA7DA2F0077D87B /* GLProgram.h */,
 				D30943D01DA7DA2F0077D87B /* GLProgram.m */,
 				D30943D21DA7DF950077D87B /* unuse */,
@@ -364,12 +364,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EE78E291DA88E2E00F611D5 /* GLGeometry.m in Sources */,
 				8E7EA69F1D9E436B0099989A /* UIImage+GL.m in Sources */,
 				D309437E1DA698A40077D87B /* ObjFile.mm in Sources */,
 				D30943D11DA7DA2F0077D87B /* GLProgram.m in Sources */,
 				8E7EA6221D9E2BBE0099989A /* AppDelegate.m in Sources */,
 				D309437B1DA698630077D87B /* tiny_obj_loader.cc in Sources */,
-				8E7EA6561D9E2CE90099989A /* Geometry.m in Sources */,
 				D30943D61DA7E0D50077D87B /* GLWorld.m in Sources */,
 				8E7EA6291D9E2BBE0099989A /* GameViewController.m in Sources */,
 				8E7EA61F1D9E2BBE0099989A /* main.m in Sources */,
