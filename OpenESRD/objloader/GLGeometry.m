@@ -12,7 +12,6 @@
 #import "GeometryDefines.h"
 
 @interface GLGeometry () {
-    int uniforms[NUM_UNIFORMS];
     GLfloat rotation;
 }
 
