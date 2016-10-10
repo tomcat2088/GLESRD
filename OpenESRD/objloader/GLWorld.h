@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) EAGLContext *context;
 @property (assign, nonatomic) GLKMatrix4 viewProjection;
+@property (assign, nonatomic) CGFloat angleY;
+@property (assign, nonatomic) CGFloat angleX;
 
 - (instancetype)initWithGLKView:(GLKView *)glkView;
 - (void)addGeometry:(GLGeometry *)geometry;

@@ -23,6 +23,8 @@
 
     GLGeometry *wf;
     GLWorld *world;
+
+    CGPoint lastTouchPoint;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -37,7 +39,7 @@
 
     GLKView *view = (GLKView *)self.view;
     world = [[GLWorld alloc]initWithGLKView:view];
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"monkey" ofType:@".obj"];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"scene" ofType:@".obj"];
     [world addGeometry:[[GLWaveFrontGeometry alloc]initWithWaveFrontFilePath:filePath]];
 //    [world addGeometry:[GLPlaneGeometry new]];
 }
@@ -84,8 +86,23 @@
 //    _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
 //
 //    _rotation += self.timeSinceLastUpdate * 0.5f;
-    
+
     [world update:self.timeSinceLastUpdate];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    lastTouchPoint = [touches.anyObject locationInView:self.view];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    CGPoint pt = [touches.anyObject locationInView:self.view];
+    CGFloat dx = pt.x - lastTouchPoint.x;
+    CGFloat dy = pt.y - lastTouchPoint.y;
+
+    world.angleY += dx / 100.0f;
+    world.angleX += dy / 100.0f;
+
+    lastTouchPoint = pt;
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {

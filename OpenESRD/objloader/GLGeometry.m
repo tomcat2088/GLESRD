@@ -70,7 +70,7 @@
     glUniformMatrix3fv([self.glProgram uniform:UNIFORM_NORMAL_MATRIX], 1, 0, self.normalMatrix.m);
 
     glBindTexture(GL_TEXTURE_2D, (GLuint)[self.textures[currentTexture] unsignedIntegerValue]);
-    
+
     glBindVertexArrayOES(self.vao);
     if (self.data.supportIndiceVBO) {
         glDrawElements(GL_TRIANGLES, self.data.indiceCount, GL_UNSIGNED_INT, 0);
@@ -81,11 +81,11 @@
 }
 
 - (void)update:(NSTimeInterval)interval {
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -13.0f);
-    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, 0, 0.0f, 1.0f, 0.0f);
+    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
+    baseModelViewMatrix = GLKMatrix4Scale(baseModelViewMatrix, 1.0f, 1.0f, 1.0f);
 
     // Compute the model view matrix for the object rendered with GLKit
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
+    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 0.0f, 1.0f, 0.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
 
@@ -94,17 +94,17 @@
     self.normalMatrix = normalMatrix;
     self.modelMatrix = modelViewMatrix;
 
-    rotation += interval * 0.8f;
-    
+    //rotation += interval * 0.8f;
+
     elapsedTime += interval;
-    if(elapsedTime >= 1/30.0f) {
+    if (elapsedTime >= 1 / 30.0f) {
         currentTexture++;
         if (currentTexture > self.textures.count - 1) {
             currentTexture = 0;
             elapsedTime = 0;
         }
     }
-    
+
 }
 
 @end

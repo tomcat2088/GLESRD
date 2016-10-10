@@ -37,6 +37,8 @@
 		D30943D11DA7DA2F0077D87B /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = D30943D01DA7DA2F0077D87B /* GLProgram.m */; };
 		D30943D31DA7DF950077D87B /* Cube VBO in Resources */ = {isa = PBXBuildFile; fileRef = D30943D21DA7DF950077D87B /* Cube VBO */; };
 		D30943D61DA7E0D50077D87B /* GLWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = D30943D51DA7E0D50077D87B /* GLWorld.m */; };
+		D3DF45151DABE09F00904744 /* ball.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45141DABE09F00904744 /* ball.obj */; };
+		D3DF45171DABE61400904744 /* scene.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45161DABE61400904744 /* scene.obj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		D30943D21DA7DF950077D87B /* Cube VBO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Cube VBO"; path = "objloader/Cube VBO"; sourceTree = "<group>"; };
 		D30943D41DA7E0D50077D87B /* GLWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLWorld.h; sourceTree = "<group>"; };
 		D30943D51DA7E0D50077D87B /* GLWorld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLWorld.m; sourceTree = "<group>"; };
+		D3DF45141DABE09F00904744 /* ball.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball.obj; sourceTree = "<group>"; };
+		D3DF45161DABE61400904744 /* scene.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scene.obj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +281,8 @@
 		D30943CE1DA7D9FC0077D87B /* 3D Models */ = {
 			isa = PBXGroup;
 			children = (
+				D3DF45161DABE61400904744 /* scene.obj */,
+				D3DF45141DABE09F00904744 /* ball.obj */,
 				8E030AD31DAB9B2E00668087 /* monkey.mtl */,
 				8E030AD41DAB9B2E00668087 /* monkey.obj */,
 				8E030AC91DAB8AF600668087 /* demo.gif */,
@@ -410,8 +416,10 @@
 				8E7EA62E1D9E2BBE0099989A /* Assets.xcassets in Resources */,
 				8E030AD51DAB9B2E00668087 /* monkey.mtl in Resources */,
 				D30943881DA7A4A20077D87B /* cube2.scn in Resources */,
+				D3DF45171DABE61400904744 /* scene.obj in Resources */,
 				8E7EA69C1D9E41610099989A /* texture.png in Resources */,
 				8E7EA6311D9E2BBE0099989A /* LaunchScreen.storyboard in Resources */,
+				D3DF45151DABE09F00904744 /* ball.obj in Resources */,
 				8E7EA6241D9E2BBE0099989A /* Shader.fsh in Resources */,
 				D30943D31DA7DF950077D87B /* Cube VBO in Resources */,
 				D30943811DA69A060077D87B /* cube.mtl in Resources */,

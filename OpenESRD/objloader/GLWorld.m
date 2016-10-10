@@ -30,12 +30,14 @@
 
         glkView.context = self.context;
         glkView.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-     
+
         [EAGLContext setCurrentContext:self.context];
         glEnable(GL_DEPTH_TEST);
 
         float aspect = fabs(size.width / size.height);
         self.viewProjection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
+
+        self.viewProjection = GLKMatrix4Translate(self.viewProjection, 0, 0, -10.0f);
 
         self.geometrys = [NSMutableArray new];
     }
@@ -50,8 +52,11 @@
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    GLKMatrix4 projection = GLKMatrix4RotateX(self.viewProjection, self.angleX);
+    projection = GLKMatrix4RotateY(projection, self.angleY);
+
     for (GLGeometry *geometry in self.geometrys) {
-        geometry.viewProjection = self.viewProjection;
+        geometry.viewProjection = projection;
         [geometry draw];
     }
 }
