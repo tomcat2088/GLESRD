@@ -8,7 +8,8 @@
 
 #import "GameViewController.h"
 #import <OpenGLES/ES2/glext.h>
-#import "GLGeometry.h"
+#import "GLWaveFrontGeometry.h"
+#import "GLPlaneGeometry.h"
 #import "GLWorld.h"
 
 @interface GameViewController () {
@@ -20,7 +21,7 @@
     GLKMatrix3 _normalMatrix;
     float _rotation;
 
-    GLGeometry *plane;
+    GLGeometry *wf;
     GLWorld *world;
 }
 @property (strong, nonatomic) EAGLContext *context;
@@ -36,8 +37,9 @@
 
     GLKView *view = (GLKView *)self.view;
     world = [[GLWorld alloc]initWithGLKView:view];
-    plane = [[GLGeometry alloc]initWithWaveFrontFilePath:@""];
-    [world addGeometry:plane];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"monkey" ofType:@".obj"];
+    [world addGeometry:[[GLWaveFrontGeometry alloc]initWithWaveFrontFilePath:filePath]];
+//    [world addGeometry:[GLPlaneGeometry new]];
 }
 
 - (void)dealloc {

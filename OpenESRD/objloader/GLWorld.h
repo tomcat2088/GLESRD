@@ -10,7 +10,7 @@
 #import <OpenGLES/ES2/glext.h>
 #import <GLKit/GLKit.h>
 
-@class Geometry;
+@class GLGeometry;
 
 @interface GLWorld : NSObject
 
@@ -18,7 +18,7 @@
 @property (assign, nonatomic) GLKMatrix4 viewProjection;
 
 - (instancetype)initWithGLKView:(GLKView *)glkView;
-- (void)addGeometry:(Geometry *)geometry;
+- (void)addGeometry:(GLGeometry *)geometry;
 - (void)render;
 - (void)update:(NSTimeInterval)interval;
 @end

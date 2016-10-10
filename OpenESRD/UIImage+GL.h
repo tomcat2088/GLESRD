@@ -11,4 +11,6 @@
 
 @interface UIImage (GL)
 + (GLubyte *)dataFromImage:(NSString *)imageName width:(GLsizei *)pWidth height:(GLsizei *)pHeight;
++ (NSArray *)texturesFromGif:(NSString *)gifImage;
++ (GLuint)textureFromCGImage:(CGImageRef)imageRef;
 @end

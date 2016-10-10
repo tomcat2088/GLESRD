@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <OpenGLES/ES2/glext.h>
 
-#import "GeometryDefines.h"
+#import "GLDefines.h"
 
 @interface GLProgram : NSObject
 

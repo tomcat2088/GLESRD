@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <OpenGLES/ES2/glext.h>
+#import <GLKit/GLKit.h>
 
 @interface GLTransform : NSObject
 
@@ -22,5 +22,7 @@
 @property (assign, nonatomic) GLfloat rotateX;
 @property (assign, nonatomic) GLfloat rotateY;
 @property (assign, nonatomic) GLfloat rotateZ;
+
+- (GLKMatrix4)matrix;
 
 @end

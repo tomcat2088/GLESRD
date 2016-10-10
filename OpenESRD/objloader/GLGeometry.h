@@ -10,8 +10,17 @@
 #import <OpenGLES/ES2/glext.h>
 #import <GLKit/GLKit.h>
 
-#import "GeometryDefines.h"
+#import "GLDefines.h"
 #import "GLProgram.h"
+
+typedef struct {
+    GLuint vertexVBO;
+    GLuint indiceVBO;
+    GLsizei indiceCount;
+    GLuint vertexStride;
+    GLuint vertexCount;
+    BOOL supportIndiceVBO;
+}GLGeometryData;
 
 @interface GLGeometry : NSObject
 @property (strong, nonatomic) GLProgram *glProgram;
@@ -19,7 +28,7 @@
 @property (assign, nonatomic) GLKMatrix4 modelMatrix;
 @property (assign, nonatomic) GLKMatrix3 normalMatrix;
 
-- (instancetype)initWithWaveFrontFilePath:(NSString *)file;
+- (void)setupWithData:(GLGeometryData)data;
 - (void)draw;
 - (void)update:(NSTimeInterval)interval;
 @end
