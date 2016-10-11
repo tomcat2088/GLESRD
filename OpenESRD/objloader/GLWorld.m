@@ -49,7 +49,7 @@
 }
 
 - (void)render {
-    glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
+    glClearColor(0.95f, 0.95f, 0.95f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     GLKMatrix4 projection = GLKMatrix4RotateX(self.viewProjection, self.angleX);

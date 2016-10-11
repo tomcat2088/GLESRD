@@ -39,6 +39,10 @@
 		D30943D61DA7E0D50077D87B /* GLWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = D30943D51DA7E0D50077D87B /* GLWorld.m */; };
 		D3DF45151DABE09F00904744 /* ball.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45141DABE09F00904744 /* ball.obj */; };
 		D3DF45171DABE61400904744 /* scene.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45161DABE61400904744 /* scene.obj */; };
+		D3DF451A1DAD4A3B00904744 /* cone.mtl in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45181DAD4A3B00904744 /* cone.mtl */; };
+		D3DF451B1DAD4A3B00904744 /* cone.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45191DAD4A3B00904744 /* cone.obj */; };
+		D3DF451E1DAD4AD400904744 /* ball2.mtl in Resources */ = {isa = PBXBuildFile; fileRef = D3DF451C1DAD4AD400904744 /* ball2.mtl */; };
+		D3DF451F1DAD4AD400904744 /* ball2.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF451D1DAD4AD400904744 /* ball2.obj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +113,10 @@
 		D30943D51DA7E0D50077D87B /* GLWorld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLWorld.m; sourceTree = "<group>"; };
 		D3DF45141DABE09F00904744 /* ball.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball.obj; sourceTree = "<group>"; };
 		D3DF45161DABE61400904744 /* scene.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scene.obj; sourceTree = "<group>"; };
+		D3DF45181DAD4A3B00904744 /* cone.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cone.mtl; sourceTree = "<group>"; };
+		D3DF45191DAD4A3B00904744 /* cone.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cone.obj; sourceTree = "<group>"; };
+		D3DF451C1DAD4AD400904744 /* ball2.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball2.mtl; sourceTree = "<group>"; };
+		D3DF451D1DAD4AD400904744 /* ball2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball2.obj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +289,10 @@
 		D30943CE1DA7D9FC0077D87B /* 3D Models */ = {
 			isa = PBXGroup;
 			children = (
+				D3DF451C1DAD4AD400904744 /* ball2.mtl */,
+				D3DF451D1DAD4AD400904744 /* ball2.obj */,
+				D3DF45181DAD4A3B00904744 /* cone.mtl */,
+				D3DF45191DAD4A3B00904744 /* cone.obj */,
 				D3DF45161DABE61400904744 /* scene.obj */,
 				D3DF45141DABE09F00904744 /* ball.obj */,
 				8E030AD31DAB9B2E00668087 /* monkey.mtl */,
@@ -412,8 +424,11 @@
 				D30943861DA6ADFA0077D87B /* plane.obj in Resources */,
 				8E7EA62C1D9E2BBE0099989A /* Main.storyboard in Resources */,
 				8E7EA6261D9E2BBE0099989A /* Shader.vsh in Resources */,
+				D3DF451B1DAD4A3B00904744 /* cone.obj in Resources */,
+				D3DF451F1DAD4AD400904744 /* ball2.obj in Resources */,
 				8E030AD61DAB9B2E00668087 /* monkey.obj in Resources */,
 				8E7EA62E1D9E2BBE0099989A /* Assets.xcassets in Resources */,
+				D3DF451E1DAD4AD400904744 /* ball2.mtl in Resources */,
 				8E030AD51DAB9B2E00668087 /* monkey.mtl in Resources */,
 				D30943881DA7A4A20077D87B /* cube2.scn in Resources */,
 				D3DF45171DABE61400904744 /* scene.obj in Resources */,
@@ -424,6 +439,7 @@
 				D30943D31DA7DF950077D87B /* Cube VBO in Resources */,
 				D30943811DA69A060077D87B /* cube.mtl in Resources */,
 				8E030ACA1DAB8AF600668087 /* demo.gif in Resources */,
+				D3DF451A1DAD4A3B00904744 /* cone.mtl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
