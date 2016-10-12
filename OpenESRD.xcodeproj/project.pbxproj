@@ -43,6 +43,7 @@
 		D3DF451B1DAD4A3B00904744 /* cone.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45191DAD4A3B00904744 /* cone.obj */; };
 		D3DF451E1DAD4AD400904744 /* ball2.mtl in Resources */ = {isa = PBXBuildFile; fileRef = D3DF451C1DAD4AD400904744 /* ball2.mtl */; };
 		D3DF451F1DAD4AD400904744 /* ball2.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF451D1DAD4AD400904744 /* ball2.obj */; };
+		D3DF45221DAE85DF00904744 /* GLMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF45211DAE85DF00904744 /* GLMaterial.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,8 @@
 		D3DF45191DAD4A3B00904744 /* cone.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cone.obj; sourceTree = "<group>"; };
 		D3DF451C1DAD4AD400904744 /* ball2.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball2.mtl; sourceTree = "<group>"; };
 		D3DF451D1DAD4AD400904744 /* ball2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball2.obj; sourceTree = "<group>"; };
+		D3DF45201DAE85DF00904744 /* GLMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLMaterial.h; sourceTree = "<group>"; };
+		D3DF45211DAE85DF00904744 /* GLMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLMaterial.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				8EE78E281DA88E2E00F611D5 /* GLDefines.h */,
+				D3DF45201DAE85DF00904744 /* GLMaterial.h */,
+				D3DF45211DAE85DF00904744 /* GLMaterial.m */,
 				D309437C1DA698A40077D87B /* GLWaveFrontFile.h */,
 				D309437D1DA698A40077D87B /* GLWaveFrontFile.mm */,
 				D30943CF1DA7DA2F0077D87B /* GLProgram.h */,
@@ -470,6 +475,7 @@
 				D309437E1DA698A40077D87B /* GLWaveFrontFile.mm in Sources */,
 				D30943D11DA7DA2F0077D87B /* GLProgram.m in Sources */,
 				8E7EA6221D9E2BBE0099989A /* AppDelegate.m in Sources */,
+				D3DF45221DAE85DF00904744 /* GLMaterial.m in Sources */,
 				D309437B1DA698630077D87B /* tiny_obj_loader.cc in Sources */,
 				D30943D61DA7E0D50077D87B /* GLWorld.m in Sources */,
 				8E4B12DB1DA9DFD800363A75 /* GLWaveFrontGeometry.m in Sources */,

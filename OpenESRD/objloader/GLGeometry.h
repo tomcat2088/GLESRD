@@ -12,6 +12,7 @@
 
 #import "GLDefines.h"
 #import "GLProgram.h"
+#import "GLMaterial.h"
 
 typedef struct {
     GLuint vertexVBO;
@@ -27,6 +28,8 @@ typedef struct {
 @property (assign, nonatomic) GLKMatrix4 viewProjection;
 @property (assign, nonatomic) GLKMatrix4 modelMatrix;
 @property (assign, nonatomic) GLKMatrix3 normalMatrix;
+
+@property (strong, nonatomic) GLMaterial *material;
 
 - (void)setupWithData:(GLGeometryData)data;
 - (void)draw;

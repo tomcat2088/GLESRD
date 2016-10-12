@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <OpenGLES/ES2/glext.h>
+#import "GLMaterial.h"
 
 @interface GLWaveFrontFile : NSObject
 @property (assign, nonatomic) GLuint vertexVBO;
@@ -17,6 +18,7 @@
 @property (assign, nonatomic) GLsizei indiceCount;
 
 @property (assign, nonatomic) GLsizei uvOffset;
+@property (strong, nonatomic) NSArray *materials;
 
 - (instancetype)initWithFilePath:(NSString *)path;
 @end

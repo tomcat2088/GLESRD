@@ -48,6 +48,22 @@
     std::vector<GLfloat> buffer = [self generateVertexBuffer:attrib indices:indices];
     [self generateVertexVBO:buffer];
     [self generateIndiceVBO:indices];
+    [self loadMaterials:materials];
+}
+
+- (void)loadMaterials:(std::vector<tinyobj::material_t>)materials {
+    NSMutableArray *mats = [NSMutableArray new];
+
+    for (size_t index = 0; index < materials.size(); index++) {
+        GLMaterial *material = [GLMaterial new];
+        tinyobj::material_t material_t = materials.at(index);
+        material.ambient = GLKVector4Make(material_t.ambient[0], material_t.ambient[1], material_t.ambient[2], 1.0);
+        material.specular = GLKVector4Make(material_t.specular[0], material_t.specular[1], material_t.specular[2], 1.0);
+        material.diffuse = GLKVector4Make(material_t.diffuse[0], material_t.diffuse[1], material_t.diffuse[2], 1.0);
+        [mats addObject:material];
+    }
+
+    self.materials = [mats copy];
 }
 
 - (std::vector<GLfloat>)generateVertexBuffer:(tinyobj::attrib_t)attrib indices:(std::vector<tinyobj::index_t>)indices {

@@ -26,7 +26,11 @@
         data.vertexStride = self.obj.vertexStride;
         data.supportIndiceVBO = NO;
         [self setupWithData:data];
+        if (self.obj.materials.count > 0) {
+            self.material = self.obj.materials[0];
+        }
     }
     return self;
 }
+
 @end

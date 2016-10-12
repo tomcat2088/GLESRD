@@ -28,6 +28,7 @@
 - (void)setupWithData:(GLGeometryData)data {
     self.data = data;
     self.glProgram = [[GLProgram alloc]initWithVertexShaderFileName:@"Shader" fragmentShaderFileName:@"Shader"];
+    self.material = [GLMaterial new];
     [self createTexture];
     [self setupVAO];
 }
@@ -68,8 +69,11 @@
     glUniformMatrix4fv([self.glProgram uniform:UNIFORM_VIEWPROJECTION], 1, 0, self.viewProjection.m);
     glUniformMatrix4fv([self.glProgram uniform:UNIFORM_MODEL_MATRIX], 1, 0, self.modelMatrix.m);
     glUniformMatrix3fv([self.glProgram uniform:UNIFORM_NORMAL_MATRIX], 1, 0, self.normalMatrix.m);
+    glUniform4fv([self.glProgram uniform:UNIFORM_AMBIENT], 1, self.material.ambient.v);
+    glUniform4fv([self.glProgram uniform:UNIFORM_DIFFUSE], 1, self.material.diffuse.v);
+    glUniform4fv([self.glProgram uniform:UNIFORM_SPECULAR], 1, self.material.specular.v);
 
-    glBindTexture(GL_TEXTURE_2D, (GLuint)[self.textures[currentTexture] unsignedIntegerValue]);
+    //glBindTexture(GL_TEXTURE_2D, (GLuint)[self.textures[currentTexture] unsignedIntegerValue]);
 
     glBindVertexArrayOES(self.vao);
     if (self.data.supportIndiceVBO) {
@@ -89,7 +93,7 @@
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 0.0f, 1.0f, 0.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
 
-    GLKMatrix4 mvp =  GLKMatrix4Multiply(self.viewProjection, modelViewMatrix);
+    GLKMatrix4 mvp = GLKMatrix4Multiply(self.viewProjection, modelViewMatrix);
     GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
 
     self.normalMatrix = normalMatrix;

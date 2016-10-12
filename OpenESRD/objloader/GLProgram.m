@@ -103,6 +103,9 @@
     uniforms[UNIFORM_VIEWPROJECTION] = glGetUniformLocation(program, "viewProjection");
     uniforms[UNIFORM_MODEL_MATRIX] = glGetUniformLocation(program, "modelMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(program, "normalMatrix");
+    uniforms[UNIFORM_AMBIENT] = glGetUniformLocation(program, "ambient");
+    uniforms[UNIFORM_DIFFUSE] = glGetUniformLocation(program, "diffuse");
+    uniforms[UNIFORM_SPECULAR] = glGetUniformLocation(program, "specular");
 
     // Release vertex and fragment shaders.
     if (vertShader) {
