@@ -8,10 +8,12 @@
 
 #import "GLWorld.h"
 #import "GLGeometry.h"
+#import "GLLight.h"
 
 @interface GLWorld ()
 
 @property (strong, nonatomic) NSMutableArray *geometrys;
+@property (assign, nonatomic) GLKMatrix4 originViewProjection;
 
 @end
 
@@ -38,13 +40,17 @@
         self.viewProjection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
 
         self.viewProjection = GLKMatrix4Translate(self.viewProjection, 0, 0, -10.0f);
-
+        self.originViewProjection = self.viewProjection;
+        
+        self.light = [GLLight new];
+        
         self.geometrys = [NSMutableArray new];
     }
     return self;
 }
 
 - (void)addGeometry:(GLGeometry *)geometry {
+    geometry.world = self;
     [self.geometrys addObject:geometry];
 }
 
@@ -52,16 +58,17 @@
     glClearColor(0.95f, 0.95f, 0.95f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    GLKMatrix4 projection = GLKMatrix4RotateX(self.viewProjection, self.angleX);
+    GLKMatrix4 projection = GLKMatrix4RotateX(self.originViewProjection, self.angleX);
     projection = GLKMatrix4RotateY(projection, self.angleY);
+    self.viewProjection = projection;
 
     for (GLGeometry *geometry in self.geometrys) {
-        geometry.viewProjection = projection;
         [geometry draw];
     }
 }
 
 - (void)update:(NSTimeInterval)interval {
+    [self.light update:interval];
     for (GLGeometry *geometry in self.geometrys) {
         [geometry update:interval];
     }

@@ -9,5 +9,7 @@
 #import "GLGeometry.h"
 
 @interface GLWaveFrontGeometry : GLGeometry
+@property (strong, nonatomic) NSArray *geometries;
+
 - (instancetype)initWithWaveFrontFilePath:(NSString *)path;
 @end

@@ -10,6 +10,8 @@
 #import "UIImage+GL.h"
 #import "GLWaveFrontFile.h"
 #import "GLDefines.h"
+#import "GLLight.h"
+#import "GLWorld.h"
 
 @interface GLGeometry () {
     GLfloat rotation;
@@ -66,15 +68,19 @@
 - (void)draw {
     glUseProgram(self.glProgram.value);
 
-    glUniformMatrix4fv([self.glProgram uniform:UNIFORM_VIEWPROJECTION], 1, 0, self.viewProjection.m);
+    glUniformMatrix4fv([self.glProgram uniform:UNIFORM_VIEWPROJECTION], 1, 0, self.world.viewProjection.m);
     glUniformMatrix4fv([self.glProgram uniform:UNIFORM_MODEL_MATRIX], 1, 0, self.modelMatrix.m);
     glUniformMatrix3fv([self.glProgram uniform:UNIFORM_NORMAL_MATRIX], 1, 0, self.normalMatrix.m);
     glUniform4fv([self.glProgram uniform:UNIFORM_AMBIENT], 1, self.material.ambient.v);
     glUniform4fv([self.glProgram uniform:UNIFORM_DIFFUSE], 1, self.material.diffuse.v);
     glUniform4fv([self.glProgram uniform:UNIFORM_SPECULAR], 1, self.material.specular.v);
+    glUniform4fv([self.glProgram uniform:UNIFORM_LIGHT_COLOR], 1, self.world.light.color.v);
+    glUniform1f([self.glProgram uniform:UNIFORM_LIGHT_BRIGHTNESS], self.world.light.brightness);
+    glUniform3fv([self.glProgram uniform:UNIFORM_LIGHT_POSITION], 1, self.world.light.position.v);
 
     //glBindTexture(GL_TEXTURE_2D, (GLuint)[self.textures[currentTexture] unsignedIntegerValue]);
-
+    glBindTexture(GL_TEXTURE_2D, self.material.diffuseMap);
+    
     glBindVertexArrayOES(self.vao);
     if (self.data.supportIndiceVBO) {
         glDrawElements(GL_TRIANGLES, self.data.indiceCount, GL_UNSIGNED_INT, 0);
@@ -93,7 +99,7 @@
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 0.0f, 1.0f, 0.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
 
-    GLKMatrix4 mvp = GLKMatrix4Multiply(self.viewProjection, modelViewMatrix);
+    GLKMatrix4 mvp = GLKMatrix4Multiply(self.world.viewProjection, modelViewMatrix);
     GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
 
     self.normalMatrix = normalMatrix;

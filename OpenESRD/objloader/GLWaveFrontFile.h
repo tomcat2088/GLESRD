@@ -10,15 +10,21 @@
 #import <OpenGLES/ES2/glext.h>
 #import "GLMaterial.h"
 
-@interface GLWaveFrontFile : NSObject
+@interface GLWaveFrontShape : NSObject
+
 @property (assign, nonatomic) GLuint vertexVBO;
 @property (assign, nonatomic) GLuint indiceVBO;
 @property (assign, nonatomic) GLsizei vertexStride;
 @property (assign, nonatomic) GLsizei vertexCount;
 @property (assign, nonatomic) GLsizei indiceCount;
+@property (strong, nonatomic) GLMaterial *material;
 
-@property (assign, nonatomic) GLsizei uvOffset;
-@property (strong, nonatomic) NSArray *materials;
+@end
+
+@interface GLWaveFrontFile : NSObject
+
+@property (strong, nonatomic) NSArray *shapes;
 
 - (instancetype)initWithFilePath:(NSString *)path;
+
 @end

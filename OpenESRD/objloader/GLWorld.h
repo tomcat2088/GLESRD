@@ -11,11 +11,14 @@
 #import <GLKit/GLKit.h>
 
 @class GLGeometry;
+@class GLLight;
 
 @interface GLWorld : NSObject
 
 @property (strong, nonatomic) EAGLContext *context;
 @property (assign, nonatomic) GLKMatrix4 viewProjection;
+@property (strong, nonatomic) GLLight *light;
+
 @property (assign, nonatomic) CGFloat angleY;
 @property (assign, nonatomic) CGFloat angleX;
 

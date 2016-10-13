@@ -9,6 +9,21 @@
 #import "GLWaveFrontFile.h"
 
 #import "tiny_obj_loader.h"
+#import "UIImage+GL.h"
+
+@implementation GLWaveFrontShape
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.material = [GLMaterial new];
+    }
+    return self;
+}
+
+@end
+
 
 @implementation GLWaveFrontFile
 
@@ -27,31 +42,41 @@
     std::vector<tinyobj::material_t> materials;
 
     std::string err;
-    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err, inputfile.c_str());
+    std::string resourcePath([[[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/"] cStringUsingEncoding:NSUTF8StringEncoding]);
+    tinyobj::LoadObj(&attrib, &shapes, &materials, &err, inputfile.c_str(),resourcePath.c_str());
 
     if (!err.empty()) { // `err` may contain warning message.
         NSLog(@"%@", [NSString stringWithUTF8String:err.c_str()]);
     }
 
-    if (!ret) {
-        exit(1);
-    }
-
     std::vector<GLfloat> vertices;
     std::vector<tinyobj::index_t> indices;
+    NSArray *glMaterials = [self loadMaterials:materials];
+    NSMutableArray *glShapes = [NSMutableArray new];
     for (size_t s = 0; s < shapes.size(); s++) {
-        for (size_t index = 0; index < shapes[s].mesh.indices.size(); index++) {
-            tinyobj::index_t indice = shapes[s].mesh.indices[index];
-            indices.push_back(indice);
-        }
+        GLWaveFrontShape * shape = [self buildShape:shapes.at(s) attrib:attrib materials:glMaterials];
+        [glShapes addObject:shape];
     }
-    std::vector<GLfloat> buffer = [self generateVertexBuffer:attrib indices:indices];
-    [self generateVertexVBO:buffer];
-    [self generateIndiceVBO:indices];
-    [self loadMaterials:materials];
+    self.shapes = [glShapes copy];
 }
 
-- (void)loadMaterials:(std::vector<tinyobj::material_t>)materials {
+- (GLWaveFrontShape *)buildShape:(tinyobj::shape_t)shape attrib:(tinyobj::attrib_t)attrib materials:(NSArray *)materials {
+    std::vector<tinyobj::index_t> indices;
+    for (size_t index = 0; index < shape.mesh.indices.size(); index++) {
+        tinyobj::index_t indice = shape.mesh.indices[index];
+        indices.push_back(indice);
+    }
+    
+    GLWaveFrontShape *glShape = [GLWaveFrontShape new];
+    if (shape.mesh.material_ids[0] >= 0 && shape.mesh.material_ids[0] < materials.count) {
+        glShape.material = materials[shape.mesh.material_ids[0]];
+    }
+    std::vector<GLfloat> buffer = [self generateVertexBuffer:attrib indices:indices];
+    [self generateVertexVBO:buffer shape:glShape];
+    return glShape;
+}
+
+- (NSArray *)loadMaterials:(std::vector<tinyobj::material_t>)materials {
     NSMutableArray *mats = [NSMutableArray new];
 
     for (size_t index = 0; index < materials.size(); index++) {
@@ -60,10 +85,21 @@
         material.ambient = GLKVector4Make(material_t.ambient[0], material_t.ambient[1], material_t.ambient[2], 1.0);
         material.specular = GLKVector4Make(material_t.specular[0], material_t.specular[1], material_t.specular[2], 1.0);
         material.diffuse = GLKVector4Make(material_t.diffuse[0], material_t.diffuse[1], material_t.diffuse[2], 1.0);
+        material.diffuseMap = [self loadTexture:material_t.diffuse_texname];
         [mats addObject:material];
     }
 
-    self.materials = [mats copy];
+    return [mats copy];
+}
+
+- (GLuint)loadTexture:(std::string)texName {
+    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+    NSString *diffuseMapFileName = [NSString stringWithFormat:@"%@/%@",resourcePath,[NSString stringWithUTF8String:texName.c_str()]];
+    UIImage *diffuseImage = [UIImage imageWithContentsOfFile:diffuseMapFileName];
+    if (diffuseImage) {
+        return [UIImage textureFromCGImage:diffuseImage.CGImage];
+    }
+    return 0;
 }
 
 - (std::vector<GLfloat>)generateVertexBuffer:(tinyobj::attrib_t)attrib indices:(std::vector<tinyobj::index_t>)indices {
@@ -82,29 +118,33 @@
     return vertices;
 }
 
-- (void)generateVertexVBO:(std::vector<float>)vertices {
+- (void)generateVertexVBO:(std::vector<float>)vertices shape:(GLWaveFrontShape *)shape {
+    GLuint vertexVBO;
     GLfloat *pVertices = vertices.data();
-    glGenBuffers(1, &_vertexVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexVBO);
+    glGenBuffers(1, &vertexVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * vertices.size(), pVertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    self.vertexStride = sizeof(GLfloat) * 8;
-    self.vertexCount = (GLsizei)(vertices.size() / 8);
+    shape.vertexVBO = vertexVBO;
+    shape.vertexStride = sizeof(GLfloat) * 8;
+    shape.vertexCount = (GLsizei)(vertices.size() / 8);
 }
 
-- (void)generateIndiceVBO:(std::vector<tinyobj::index_t>)indices {
+- (void)generateIndiceVBO:(std::vector<tinyobj::index_t>)indices shape:(GLWaveFrontShape *)shape {
+    GLuint indiceVBO;
     std::vector<GLuint> vertexIndices;
     for (size_t index = 0; index < indices.size(); index++) {
         vertexIndices.push_back((GLuint)indices[index].vertex_index);
     }
     GLuint *pIndices = (GLuint *)vertexIndices.data();
-    glGenBuffers(1, &_indiceVBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indiceVBO);
+    glGenBuffers(1, &indiceVBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiceVBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * vertexIndices.size(), pIndices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-    self.indiceCount = (GLsizei)vertexIndices.size();
+    shape.indiceVBO = indiceVBO;
+    shape.indiceCount = (GLsizei)vertexIndices.size();
 }
 
 @end

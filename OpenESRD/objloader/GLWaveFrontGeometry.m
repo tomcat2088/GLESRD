@@ -20,17 +20,40 @@
     self = [super init];
     if (self) {
         self.obj = [[GLWaveFrontFile alloc] initWithFilePath:path];
-        GLGeometryData data;
-        data.vertexCount = self.obj.vertexCount;
-        data.vertexVBO = self.obj.vertexVBO;
-        data.vertexStride = self.obj.vertexStride;
-        data.supportIndiceVBO = NO;
-        [self setupWithData:data];
-        if (self.obj.materials.count > 0) {
-            self.material = self.obj.materials[0];
+        
+        NSMutableArray *geometries = [NSMutableArray new];
+        for (GLWaveFrontShape *shape in self.obj.shapes) {
+            GLGeometry *geometry = [GLGeometry new];
+            GLGeometryData data;
+            data.vertexCount = shape.vertexCount;
+            data.vertexVBO = shape.vertexVBO;
+            data.vertexStride = shape.vertexStride;
+            data.supportIndiceVBO = NO;
+            [geometry setupWithData:data];
+            geometry.material = shape.material;
+            [geometries addObject:geometry];
         }
+        self.geometries = [geometries copy];
     }
     return self;
+}
+
+- (void)setWorld:(GLWorld *)world {
+    for (GLGeometry *geometry in self.geometries) {
+        [geometry setWorld:world];
+    }
+}
+
+- (void)draw {
+    for (GLGeometry *geometry in self.geometries) {
+        [geometry draw];
+    }
+}
+
+- (void)update:(NSTimeInterval)interval {
+    for (GLGeometry *geometry in self.geometries) {
+        [geometry update:interval];
+    }
 }
 
 @end

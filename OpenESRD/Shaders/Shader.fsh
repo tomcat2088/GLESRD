@@ -20,19 +20,21 @@ uniform highp vec4 ambient;
 uniform highp vec4 diffuse;
 uniform highp vec4 specular;
 
+uniform highp vec4 lightColor;
+uniform highp vec3 lightPosition;
+uniform highp float lightBrightness;
+
 void main()
 {
-    highp vec3 lightPosition = vec3(0.0, 20.0, 20.0);
-    highp vec4 lightColor = vec4(1.0, 1.0, 0.0, 1.0);
-    
     highp vec3 eyePosition = vec3(viewProjection * modelMatrix * frag_position);
     highp vec3 eyeNormal = normalize(normalMatrix * frag_normal);
     highp vec3 eyeLightVec = vec3(viewProjection * vec4(lightPosition,1.0)) - vec3(eyePosition);
     highp float eyeLightDistance = distance(eyeLightVec,vec3(0,0,0));
     
-    highp float brightness = max(0.0, 800.0 * dot(eyeNormal, normalize(eyeLightVec)));
+    highp float brightness = max(0.0, 1000.0 * lightBrightness * dot(eyeNormal, normalize(eyeLightVec)));
 
-    highp vec4 surfaceColor = diffuse;//texture2D( texture0,frag_uv );
+    
+    highp vec4 surfaceColor = texture2D( texture0,frag_uv ) + diffuse;
     highp vec3 ambientColor = ambient.rgb;
     
     highp vec3 eyeReverseVec = normalize(vec3(0.0,0.0,0.0) - eyePosition);

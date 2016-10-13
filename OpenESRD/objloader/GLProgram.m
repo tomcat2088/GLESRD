@@ -106,6 +106,9 @@
     uniforms[UNIFORM_AMBIENT] = glGetUniformLocation(program, "ambient");
     uniforms[UNIFORM_DIFFUSE] = glGetUniformLocation(program, "diffuse");
     uniforms[UNIFORM_SPECULAR] = glGetUniformLocation(program, "specular");
+    uniforms[UNIFORM_LIGHT_POSITION] = glGetUniformLocation(program, "lightPosition");
+    uniforms[UNIFORM_LIGHT_COLOR] = glGetUniformLocation(program, "lightColor");
+    uniforms[UNIFORM_LIGHT_BRIGHTNESS] = glGetUniformLocation(program, "lightBrightness");
 
     // Release vertex and fragment shaders.
     if (vertShader) {

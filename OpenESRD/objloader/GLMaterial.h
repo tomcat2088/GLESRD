@@ -13,5 +13,6 @@
 @property (assign, nonatomic) GLKVector4 ambient;
 @property (assign, nonatomic) GLKVector4 diffuse;
 @property (assign, nonatomic) GLKVector4 specular;
+@property (assign, nonatomic) GLuint diffuseMap;
 
 @end

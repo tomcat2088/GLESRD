@@ -14,6 +14,8 @@
 #import "GLProgram.h"
 #import "GLMaterial.h"
 
+@class GLWorld;
+
 typedef struct {
     GLuint vertexVBO;
     GLuint indiceVBO;
@@ -25,10 +27,10 @@ typedef struct {
 
 @interface GLGeometry : NSObject
 @property (strong, nonatomic) GLProgram *glProgram;
-@property (assign, nonatomic) GLKMatrix4 viewProjection;
+@property (weak, nonatomic) GLWorld *world;
+
 @property (assign, nonatomic) GLKMatrix4 modelMatrix;
 @property (assign, nonatomic) GLKMatrix3 normalMatrix;
-
 @property (strong, nonatomic) GLMaterial *material;
 
 - (void)setupWithData:(GLGeometryData)data;

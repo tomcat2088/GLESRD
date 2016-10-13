@@ -12,6 +12,9 @@
 		8E030AD51DAB9B2E00668087 /* monkey.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 8E030AD31DAB9B2E00668087 /* monkey.mtl */; };
 		8E030AD61DAB9B2E00668087 /* monkey.obj in Resources */ = {isa = PBXBuildFile; fileRef = 8E030AD41DAB9B2E00668087 /* monkey.obj */; };
 		8E4B12DB1DA9DFD800363A75 /* GLWaveFrontGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E4B12DA1DA9DFD800363A75 /* GLWaveFrontGeometry.m */; };
+		8E7E10D91DAF560C00205F70 /* GLLight.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7E10D81DAF560C00205F70 /* GLLight.m */; };
+		8E7E10DB1DAF602E00205F70 /* scene.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 8E7E10DA1DAF602E00205F70 /* scene.mtl */; };
+		8E7E10DD1DAF690900205F70 /* ball.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 8E7E10DC1DAF690900205F70 /* ball.mtl */; };
 		8E7EA61F1D9E2BBE0099989A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA61E1D9E2BBE0099989A /* main.m */; };
 		8E7EA6221D9E2BBE0099989A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EA6211D9E2BBE0099989A /* AppDelegate.m */; };
 		8E7EA6241D9E2BBE0099989A /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 8E7EA6231D9E2BBE0099989A /* Shader.fsh */; };
@@ -71,6 +74,10 @@
 		8E030AD41DAB9B2E00668087 /* monkey.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = monkey.obj; sourceTree = "<group>"; };
 		8E4B12D91DA9DFD800363A75 /* GLWaveFrontGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLWaveFrontGeometry.h; sourceTree = "<group>"; };
 		8E4B12DA1DA9DFD800363A75 /* GLWaveFrontGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLWaveFrontGeometry.m; sourceTree = "<group>"; };
+		8E7E10D71DAF560C00205F70 /* GLLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLLight.h; sourceTree = "<group>"; };
+		8E7E10D81DAF560C00205F70 /* GLLight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLLight.m; sourceTree = "<group>"; };
+		8E7E10DA1DAF602E00205F70 /* scene.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scene.mtl; sourceTree = "<group>"; };
+		8E7E10DC1DAF690900205F70 /* ball.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball.mtl; sourceTree = "<group>"; };
 		8E7EA61A1D9E2BBE0099989A /* OpenESRD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenESRD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E7EA61E1D9E2BBE0099989A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8E7EA6201D9E2BBE0099989A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -174,6 +181,8 @@
 				D30943D51DA7E0D50077D87B /* GLWorld.m */,
 				8E96CCFA1DA8FF840060CE97 /* GLTransform.h */,
 				8E96CCFB1DA8FF840060CE97 /* GLTransform.mm */,
+				8E7E10D71DAF560C00205F70 /* GLLight.h */,
+				8E7E10D81DAF560C00205F70 /* GLLight.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -294,6 +303,8 @@
 		D30943CE1DA7D9FC0077D87B /* 3D Models */ = {
 			isa = PBXGroup;
 			children = (
+				8E7E10DC1DAF690900205F70 /* ball.mtl */,
+				8E7E10DA1DAF602E00205F70 /* scene.mtl */,
 				D3DF451C1DAD4AD400904744 /* ball2.mtl */,
 				D3DF451D1DAD4AD400904744 /* ball2.obj */,
 				D3DF45181DAD4A3B00904744 /* cone.mtl */,
@@ -429,6 +440,7 @@
 				D30943861DA6ADFA0077D87B /* plane.obj in Resources */,
 				8E7EA62C1D9E2BBE0099989A /* Main.storyboard in Resources */,
 				8E7EA6261D9E2BBE0099989A /* Shader.vsh in Resources */,
+				8E7E10DD1DAF690900205F70 /* ball.mtl in Resources */,
 				D3DF451B1DAD4A3B00904744 /* cone.obj in Resources */,
 				D3DF451F1DAD4AD400904744 /* ball2.obj in Resources */,
 				8E030AD61DAB9B2E00668087 /* monkey.obj in Resources */,
@@ -442,6 +454,7 @@
 				D3DF45151DABE09F00904744 /* ball.obj in Resources */,
 				8E7EA6241D9E2BBE0099989A /* Shader.fsh in Resources */,
 				D30943D31DA7DF950077D87B /* Cube VBO in Resources */,
+				8E7E10DB1DAF602E00205F70 /* scene.mtl in Resources */,
 				D30943811DA69A060077D87B /* cube.mtl in Resources */,
 				8E030ACA1DAB8AF600668087 /* demo.gif in Resources */,
 				D3DF451A1DAD4A3B00904744 /* cone.mtl in Resources */,
@@ -478,6 +491,7 @@
 				D3DF45221DAE85DF00904744 /* GLMaterial.m in Sources */,
 				D309437B1DA698630077D87B /* tiny_obj_loader.cc in Sources */,
 				D30943D61DA7E0D50077D87B /* GLWorld.m in Sources */,
+				8E7E10D91DAF560C00205F70 /* GLLight.m in Sources */,
 				8E4B12DB1DA9DFD800363A75 /* GLWaveFrontGeometry.m in Sources */,
 				8E7EA6291D9E2BBE0099989A /* GameViewController.m in Sources */,
 				8E7EA61F1D9E2BBE0099989A /* main.m in Sources */,
