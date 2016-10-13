@@ -14,7 +14,7 @@
     self = [super init];
     if (self) {
         self.ambient = GLKVector4Make(0.0, 0.0, 0.1, 1.0);
-        self.diffuse = GLKVector4Make(0.6, 0.0, 0.0, 1.0);
+        self.diffuse = GLKVector4Make(0.6, 0.6, 0.6, 1.0);
         self.specular = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
     }
     return self;

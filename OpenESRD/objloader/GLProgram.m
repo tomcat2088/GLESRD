@@ -100,15 +100,19 @@
     }
 
     // Get uniform locations.
+    uniforms[UNIFORM_RENDERASSHADOW] = glGetUniformLocation(program, "renderAsShadow");
     uniforms[UNIFORM_VIEWPROJECTION] = glGetUniformLocation(program, "viewProjection");
     uniforms[UNIFORM_MODEL_MATRIX] = glGetUniformLocation(program, "modelMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(program, "normalMatrix");
     uniforms[UNIFORM_AMBIENT] = glGetUniformLocation(program, "ambient");
     uniforms[UNIFORM_DIFFUSE] = glGetUniformLocation(program, "diffuse");
     uniforms[UNIFORM_SPECULAR] = glGetUniformLocation(program, "specular");
+    uniforms[UNIFORM_LIGHT_VIEWPROJECTION] = glGetUniformLocation(program, "lightViewProjection");
     uniforms[UNIFORM_LIGHT_POSITION] = glGetUniformLocation(program, "lightPosition");
     uniforms[UNIFORM_LIGHT_COLOR] = glGetUniformLocation(program, "lightColor");
     uniforms[UNIFORM_LIGHT_BRIGHTNESS] = glGetUniformLocation(program, "lightBrightness");
+    uniforms[UNIFORM_DIFFUSE_MAP] = glGetUniformLocation(program, "diffuseMap");
+    uniforms[UNIFORM_SHADOW_MAP] = glGetUniformLocation(program, "shadowMap");
 
     // Release vertex and fragment shaders.
     if (vertShader) {

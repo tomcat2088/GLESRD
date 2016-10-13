@@ -29,10 +29,15 @@ typedef struct {
 @property (strong, nonatomic) GLProgram *glProgram;
 @property (weak, nonatomic) GLWorld *world;
 
+@property (assign, nonatomic) GLKMatrix4 viewProjection;
+@property (assign, nonatomic) GLKMatrix4 lightViewProjection;
 @property (assign, nonatomic) GLKMatrix4 modelMatrix;
 @property (assign, nonatomic) GLKMatrix3 normalMatrix;
 @property (strong, nonatomic) GLMaterial *material;
 
+@property (assign, nonatomic) BOOL renderAsShadow;
+
+- (instancetype)initWithVertexShader:(NSString *)vertexShader fragmentShader:(NSString *)fragmentShader;
 - (void)setupWithData:(GLGeometryData)data;
 - (void)draw;
 - (void)update:(NSTimeInterval)interval;

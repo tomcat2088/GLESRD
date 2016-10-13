@@ -20,7 +20,7 @@
     self = [super init];
     if (self) {
         self.obj = [[GLWaveFrontFile alloc] initWithFilePath:path];
-        
+        self.material = [GLMaterial new];
         NSMutableArray *geometries = [NSMutableArray new];
         for (GLWaveFrontShape *shape in self.obj.shapes) {
             GLGeometry *geometry = [GLGeometry new];
@@ -46,6 +46,11 @@
 
 - (void)draw {
     for (GLGeometry *geometry in self.geometries) {
+        geometry.viewProjection = self.viewProjection;
+        geometry.renderAsShadow = self.renderAsShadow;
+        geometry.lightViewProjection = self.lightViewProjection;
+        geometry.material.diffuseMap = self.material.diffuseMap;
+        geometry.material.shadowMap = self.material.shadowMap;
         [geometry draw];
     }
 }

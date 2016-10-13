@@ -23,13 +23,30 @@
 @property (assign, nonatomic) GLuint vao;
 @property (assign, nonatomic) GLGeometryData data;
 
+@property (copy, nonatomic) NSString *vertexShader;
+@property (copy, nonatomic) NSString *fragmentShader;
 @end
 
 @implementation GLGeometry
 
+- (instancetype)initWithVertexShader:(NSString *)vertexShader fragmentShader:(NSString *)fragmentShader {
+    self = [super init];
+    if (self) {
+        self.vertexShader = vertexShader;
+        self.fragmentShader = fragmentShader;
+    }
+    return self;
+}
+
 - (void)setupWithData:(GLGeometryData)data {
     self.data = data;
-    self.glProgram = [[GLProgram alloc]initWithVertexShaderFileName:@"Shader" fragmentShaderFileName:@"Shader"];
+    if (self.vertexShader == nil) {
+        self.vertexShader = @"Shader";
+    }
+    if (self.fragmentShader == nil) {
+        self.fragmentShader = @"Shader";
+    }
+    self.glProgram = [[GLProgram alloc]initWithVertexShaderFileName:self.vertexShader fragmentShaderFileName:self.fragmentShader];
     self.material = [GLMaterial new];
     [self createTexture];
     [self setupVAO];
@@ -68,19 +85,28 @@
 - (void)draw {
     glUseProgram(self.glProgram.value);
 
-    glUniformMatrix4fv([self.glProgram uniform:UNIFORM_VIEWPROJECTION], 1, 0, self.world.viewProjection.m);
+    GLint renderAsShadow = self.renderAsShadow ? 1 : 0;
+    glUniform1i([self.glProgram uniform:UNIFORM_RENDERASSHADOW], renderAsShadow);
+
+    glUniformMatrix4fv([self.glProgram uniform:UNIFORM_VIEWPROJECTION], 1, 0, self.viewProjection.m);
     glUniformMatrix4fv([self.glProgram uniform:UNIFORM_MODEL_MATRIX], 1, 0, self.modelMatrix.m);
     glUniformMatrix3fv([self.glProgram uniform:UNIFORM_NORMAL_MATRIX], 1, 0, self.normalMatrix.m);
     glUniform4fv([self.glProgram uniform:UNIFORM_AMBIENT], 1, self.material.ambient.v);
     glUniform4fv([self.glProgram uniform:UNIFORM_DIFFUSE], 1, self.material.diffuse.v);
     glUniform4fv([self.glProgram uniform:UNIFORM_SPECULAR], 1, self.material.specular.v);
+    glUniformMatrix4fv([self.glProgram uniform:UNIFORM_LIGHT_VIEWPROJECTION], 1,0, self.lightViewProjection.m);
     glUniform4fv([self.glProgram uniform:UNIFORM_LIGHT_COLOR], 1, self.world.light.color.v);
     glUniform1f([self.glProgram uniform:UNIFORM_LIGHT_BRIGHTNESS], self.world.light.brightness);
     glUniform3fv([self.glProgram uniform:UNIFORM_LIGHT_POSITION], 1, self.world.light.position.v);
 
-    //glBindTexture(GL_TEXTURE_2D, (GLuint)[self.textures[currentTexture] unsignedIntegerValue]);
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, self.material.diffuseMap);
-    
+    //glUniform1i([self.glProgram uniform:UNIFORM_DIFFUSE_MAP], self.material.diffuseMap);
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, self.material.shadowMap);
+    glUniform1i([self.glProgram uniform:UNIFORM_SHADOW_MAP], self.material.shadowMap);
+
     glBindVertexArrayOES(self.vao);
     if (self.data.supportIndiceVBO) {
         glDrawElements(GL_TRIANGLES, self.data.indiceCount, GL_UNSIGNED_INT, 0);
@@ -99,7 +125,7 @@
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 0.0f, 1.0f, 0.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
 
-    GLKMatrix4 mvp = GLKMatrix4Multiply(self.world.viewProjection, modelViewMatrix);
+    GLKMatrix4 mvp = GLKMatrix4Multiply(self.viewProjection, modelViewMatrix);
     GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
 
     self.normalMatrix = normalMatrix;

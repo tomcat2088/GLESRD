@@ -39,7 +39,7 @@
 
     GLKView *view = (GLKView *)self.view;
     world = [[GLWorld alloc]initWithGLKView:view];
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ball2" ofType:@".obj"];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"scene2" ofType:@".obj"];
     [world addGeometry:[[GLWaveFrontGeometry alloc]initWithWaveFrontFilePath:filePath]];
 //    [world addGeometry:[GLPlaneGeometry new]];
 }
@@ -79,7 +79,7 @@
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    [world render];
+    [world render:rect];
 }
 
 @end

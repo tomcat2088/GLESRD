@@ -47,6 +47,10 @@
 		D3DF451E1DAD4AD400904744 /* ball2.mtl in Resources */ = {isa = PBXBuildFile; fileRef = D3DF451C1DAD4AD400904744 /* ball2.mtl */; };
 		D3DF451F1DAD4AD400904744 /* ball2.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF451D1DAD4AD400904744 /* ball2.obj */; };
 		D3DF45221DAE85DF00904744 /* GLMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF45211DAE85DF00904744 /* GLMaterial.m */; };
+		D3DF45251DAFD88D00904744 /* scene2.mtl in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45231DAFD88D00904744 /* scene2.mtl */; };
+		D3DF45261DAFD88D00904744 /* scene2.obj in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45241DAFD88D00904744 /* scene2.obj */; };
+		D3DF452A1DAFFCC500904744 /* ShadowMap.fsh in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45281DAFFCC500904744 /* ShadowMap.fsh */; };
+		D3DF452B1DAFFCC500904744 /* ShadowMap.vsh in Resources */ = {isa = PBXBuildFile; fileRef = D3DF45291DAFFCC500904744 /* ShadowMap.vsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +131,10 @@
 		D3DF451D1DAD4AD400904744 /* ball2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ball2.obj; sourceTree = "<group>"; };
 		D3DF45201DAE85DF00904744 /* GLMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLMaterial.h; sourceTree = "<group>"; };
 		D3DF45211DAE85DF00904744 /* GLMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLMaterial.m; sourceTree = "<group>"; };
+		D3DF45231DAFD88D00904744 /* scene2.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scene2.mtl; sourceTree = "<group>"; };
+		D3DF45241DAFD88D00904744 /* scene2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scene2.obj; sourceTree = "<group>"; };
+		D3DF45281DAFFCC500904744 /* ShadowMap.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ShadowMap.fsh; path = Shaders/ShadowMap.fsh; sourceTree = "<group>"; };
+		D3DF45291DAFFCC500904744 /* ShadowMap.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ShadowMap.vsh; path = Shaders/ShadowMap.vsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +207,7 @@
 		8E030ACE1DAB981200668087 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				D3DF45271DAFFCA300904744 /* Shadow Map */,
 				8E030ACF1DAB981700668087 /* Default */,
 			);
 			name = Shaders;
@@ -249,7 +258,6 @@
 				8E4B12DD1DA9E2BE00363A75 /* Third Party */,
 				D30943CE1DA7D9FC0077D87B /* 3D Models */,
 				D30943781DA698630077D87B /* GLUtil */,
-				8E7EA69B1D9E41610099989A /* texture.png */,
 				8E7EA6201D9E2BBE0099989A /* AppDelegate.h */,
 				8E7EA6211D9E2BBE0099989A /* AppDelegate.m */,
 				8E7EA6271D9E2BBE0099989A /* GameViewController.h */,
@@ -303,6 +311,9 @@
 		D30943CE1DA7D9FC0077D87B /* 3D Models */ = {
 			isa = PBXGroup;
 			children = (
+				D3DF45231DAFD88D00904744 /* scene2.mtl */,
+				D3DF45241DAFD88D00904744 /* scene2.obj */,
+				8E7EA69B1D9E41610099989A /* texture.png */,
 				8E7E10DC1DAF690900205F70 /* ball.mtl */,
 				8E7E10DA1DAF602E00205F70 /* scene.mtl */,
 				D3DF451C1DAD4AD400904744 /* ball2.mtl */,
@@ -323,6 +334,15 @@
 				D30943801DA69A060077D87B /* cube.obj */,
 			);
 			name = "3D Models";
+			sourceTree = "<group>";
+		};
+		D3DF45271DAFFCA300904744 /* Shadow Map */ = {
+			isa = PBXGroup;
+			children = (
+				D3DF45281DAFFCC500904744 /* ShadowMap.fsh */,
+				D3DF45291DAFFCC500904744 /* ShadowMap.vsh */,
+			);
+			name = "Shadow Map";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,12 +455,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D30943CD1DA7AC700077D87B /* cube3.obj in Resources */,
+				D3DF452A1DAFFCC500904744 /* ShadowMap.fsh in Resources */,
 				D30943841DA6A5C20077D87B /* cube2.obj in Resources */,
 				D30943821DA69A060077D87B /* cube.obj in Resources */,
 				D30943861DA6ADFA0077D87B /* plane.obj in Resources */,
 				8E7EA62C1D9E2BBE0099989A /* Main.storyboard in Resources */,
 				8E7EA6261D9E2BBE0099989A /* Shader.vsh in Resources */,
 				8E7E10DD1DAF690900205F70 /* ball.mtl in Resources */,
+				D3DF452B1DAFFCC500904744 /* ShadowMap.vsh in Resources */,
 				D3DF451B1DAD4A3B00904744 /* cone.obj in Resources */,
 				D3DF451F1DAD4AD400904744 /* ball2.obj in Resources */,
 				8E030AD61DAB9B2E00668087 /* monkey.obj in Resources */,
@@ -451,9 +473,11 @@
 				D3DF45171DABE61400904744 /* scene.obj in Resources */,
 				8E7EA69C1D9E41610099989A /* texture.png in Resources */,
 				8E7EA6311D9E2BBE0099989A /* LaunchScreen.storyboard in Resources */,
+				D3DF45251DAFD88D00904744 /* scene2.mtl in Resources */,
 				D3DF45151DABE09F00904744 /* ball.obj in Resources */,
 				8E7EA6241D9E2BBE0099989A /* Shader.fsh in Resources */,
 				D30943D31DA7DF950077D87B /* Cube VBO in Resources */,
+				D3DF45261DAFD88D00904744 /* scene2.obj in Resources */,
 				8E7E10DB1DAF602E00205F70 /* scene.mtl in Resources */,
 				D30943811DA69A060077D87B /* cube.mtl in Resources */,
 				8E030ACA1DAB8AF600668087 /* demo.gif in Resources */,

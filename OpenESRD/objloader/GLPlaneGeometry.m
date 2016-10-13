@@ -9,9 +9,16 @@
 #import "GLPlaneGeometry.h"
 
 @implementation GLPlaneGeometry
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
+    if (self) {
+        [self setupWithData:[self genGeometryData]];
+    }
+    return self;
+}
+
+- (instancetype)initWithVertexShader:(NSString *)vertexShader fragmentShader:(NSString *)fragmentShader {
+    self = [super initWithVertexShader:vertexShader fragmentShader:fragmentShader];
     if (self) {
         [self setupWithData:[self genGeometryData]];
     }

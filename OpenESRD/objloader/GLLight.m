@@ -15,8 +15,8 @@
     self = [super init];
     if (self) {
         self.color = GLKVector4Make(1, 1, 1, 1);
-        self.brightness = 0.3; //0 ~ 1
-        self.position = GLKVector3Make(6, 7, 20);
+        self.brightness = 1.0; //0 ~ 1
+        self.position = GLKVector3Make(0, 27, 0);
     }
     return self;
 }
