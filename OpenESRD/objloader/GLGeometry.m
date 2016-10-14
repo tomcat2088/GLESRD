@@ -99,13 +99,13 @@
     glUniform1f([self.glProgram uniform:UNIFORM_LIGHT_BRIGHTNESS], self.world.light.brightness);
     glUniform3fv([self.glProgram uniform:UNIFORM_LIGHT_POSITION], 1, self.world.light.position.v);
 
+    glUniform1i([self.glProgram uniform:UNIFORM_DIFFUSE_MAP], 0);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, self.material.diffuseMap);
-    //glUniform1i([self.glProgram uniform:UNIFORM_DIFFUSE_MAP], self.material.diffuseMap);
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, self.material.shadowMap);
-    glUniform1i([self.glProgram uniform:UNIFORM_SHADOW_MAP], self.material.shadowMap);
+    glUniform1i([self.glProgram uniform:UNIFORM_SHADOW_MAP], 1);
 
     glBindVertexArrayOES(self.vao);
     if (self.data.supportIndiceVBO) {

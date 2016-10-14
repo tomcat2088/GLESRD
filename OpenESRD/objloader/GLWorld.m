@@ -10,6 +10,7 @@
 #import "GLGeometry.h"
 #import "GLLight.h"
 #import "GLPlaneGeometry.h"
+#import "UIImage+GL.h"
 
 @interface GLWorld ()
 
@@ -18,6 +19,10 @@
 @property (weak, nonatomic) GLKView *glkView;
 
 @property (strong, nonatomic) GLPlaneGeometry *projector;
+@property (assign, nonatomic) GLuint shadowFramebuffer;
+@property (assign, nonatomic) GLuint shadowTexture;
+@property (assign, nonatomic) GLuint testTexture;
+
 
 @end
 
@@ -50,13 +55,15 @@
         self.originViewProjection = self.viewProjection;
 
         self.light = [GLLight new];
+        CGRect rect = self.glkView.bounds;
         self.lightViewProjection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
-        self.lightViewProjection = GLKMatrix4Translate(self.lightViewProjection, self.light.position.x, self.light.position.y, self.light.position.z);
+        GLKMatrix4 lookAt = GLKMatrix4MakeLookAt(self.light.position.x, self.light.position.y, self.light.position.z, 0, 0, 0, 0, 1, 0);
+        self.lightViewProjection = GLKMatrix4Multiply(self.lightViewProjection, lookAt);
         [self createShadowFrameBuffer];
 
         self.geometrys = [NSMutableArray new];
 
-        self.projector = [GLPlaneGeometry new];
+        self.projector = [[GLPlaneGeometry alloc] initWithVertexShader:@"ShadowMap" fragmentShader:@"ShadowMap"];
         self.projector.world = self;
     }
     return self;
@@ -69,28 +76,29 @@
     GLuint shadowTexture;
 
     glGenFramebuffers(1, &framebuffer);
-    glGenRenderbuffers(1, &renderbuffer);
     glGenTextures(1, &shadowTexture);
+    glGenRenderbuffers(1, &renderbuffer);
 
-    glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, 1024, 1024);
+//    glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
+//    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, 1024, 1024);
 
     glBindTexture(GL_TEXTURE_2D, shadowTexture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1024, 1024, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, shadowTexture, 0);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, renderbuffer);
+//    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, renderbuffer);
 
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     self.shadowFramebuffer = framebuffer;
     self.shadowTexture = shadowTexture;
+    self.testTexture = [UIImage textureFromCGImage:[UIImage imageNamed:@"texture.png"].CGImage];
 }
 
 - (void)addGeometry:(GLGeometry *)geometry {
@@ -108,7 +116,7 @@
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     for (GLGeometry *geometry in self.geometrys) {
-        geometry.viewProjection = self.viewProjection;
+        geometry.viewProjection = self.lightViewProjection;
         geometry.lightViewProjection = self.lightViewProjection;
         geometry.renderAsShadow = YES;
         [geometry draw];
@@ -129,6 +137,7 @@
     self.projector.viewProjection = GLKMatrix4MakeOrtho(-rect.size.width / 2, rect.size.width / 2, -rect.size.height / 2, rect.size.height / 2, -1.0, 100.0f);
     self.projector.viewProjection = GLKMatrix4Translate(self.projector.viewProjection, -rect.size.width / 2 + 50, rect.size.height / 2 - 50, 1);
     self.projector.viewProjection = GLKMatrix4Scale(self.projector.viewProjection, 100, 100, 1);
+    self.projector.renderAsShadow = NO;
     self.projector.material.diffuseMap = self.shadowTexture;
     [self.projector draw];
 }

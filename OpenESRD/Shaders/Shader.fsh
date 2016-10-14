@@ -35,20 +35,21 @@ void main()
                               0.0, 0.0, 1.0, 0.0,
                               0.5, 0.5, 0.0, 1.0);
     
-    highp vec4 v_v4TexCoord = lightViewProjection * modelMatrix * frag_position;
-    if (renderAsShadow > 0) {
-        highp float value = 10.0 - v_v4TexCoord.z;
-        highp float v = floor(value);
-        highp float f = value - v;
-        highp float vn = v * 0.1;
+    if ( renderAsShadow > 0 ) {
+        highp vec4 v_v4TexCoord = lightViewProjection * modelMatrix * frag_position;
+       highp float value = 100.0 - v_v4TexCoord.z;
+       highp float v = floor(value);
+       highp float f = value - v;
+       highp float vn = v * 0.01;
         gl_FragColor = vec4(vn, f, 0.0, 1.0);
     } else {
-        v_v4TexCoord = biasMat * v_v4TexCoord;
+        highp vec4 v_v4TexCoord = biasMat * lightViewProjection * modelMatrix * frag_position;
+        
         /* Draw main scene - read and compare shadow map. */
         highp vec2 vfDepth = texture2DProj(shadowMap, v_v4TexCoord).xy;
-        highp float fDepth = (vfDepth.x * 10.0 + vfDepth.y);
+        highp float fDepth = (vfDepth.x * 100.0 + vfDepth.y);
         /* Unpack the light distance. See how it is packed in the shadow.frag file. */
-        highp float fLDepth = (10.0 - v_v4TexCoord.z) + 0.1 - fDepth ;
+        highp float fLDepth = (100.0 - v_v4TexCoord.z) + 0.1 - fDepth ;
         highp float fLight = 1.0;
         if(fDepth > 0.0 && fLDepth < 0.0)
         {
@@ -62,7 +63,7 @@ void main()
         highp vec3 eyeLightVec = vec3(viewProjection * vec4(lightPosition,1.0)) - vec3(eyePosition);
         highp float eyeLightDistance = distance(eyeLightVec,vec3(0,0,0));
         
-        highp float brightness = max(0.0, 3000.0 * lightBrightness * dot(eyeNormal, normalize(eyeLightVec)));
+        highp float brightness = max(0.0, 1000.0 * lightBrightness * dot(eyeNormal, normalize(eyeLightVec)));
         
         
         highp vec4 surfaceColor = texture2D( diffuseMap,frag_uv ) + diffuse;

@@ -49,7 +49,7 @@
         geometry.viewProjection = self.viewProjection;
         geometry.renderAsShadow = self.renderAsShadow;
         geometry.lightViewProjection = self.lightViewProjection;
-        geometry.material.diffuseMap = self.material.diffuseMap;
+//        geometry.material.diffuseMap = self.material.diffuseMap;
         geometry.material.shadowMap = self.material.shadowMap;
         [geometry draw];
     }
