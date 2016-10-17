@@ -6,6 +6,7 @@
 //  Copyright © 2016年 wangyang. All rights reserved.
 //
 
+precision highp float;
 
 varying highp vec4 frag_position;
 varying highp vec3 frag_normal;
@@ -28,6 +29,27 @@ uniform highp vec3 lightPosition;
 uniform highp float lightBrightness;
 uniform lowp int renderAsShadow;
 
+vec4 pack (float dis)
+{
+    float zsbf = floor(dis);
+    float xsbf = fract(dis);
+    xsbf = floor(xsbf * 1024.0);
+    float hzsbf = floor(zsbf / 256.0);
+    float lzsbf = mod(zsbf,256.0);
+    float hxsbf = floor(xsbf/32.0);
+    float lxsbf = mod(xsbf,32.0);
+    float r = hzsbf / 256.0;
+    float g = lzsbf / 256.0;
+    float b = hxsbf / 32.0;
+    float a = lxsbf / 32.0;
+    return vec4(r,g,b,a);
+}
+
+float unpack (vec4 color)
+{
+    return color.r * 256.0 * 256.0 + color.g * 256.0 + color.b + color.a / 32.0;
+}
+
 void main()
 {
     const highp mat4 biasMat = mat4(0.5, 0.0, 0.0, 0.0,
@@ -36,27 +58,38 @@ void main()
                               0.5, 0.5, 0.0, 1.0);
     
     if ( renderAsShadow > 0 ) {
-        highp vec4 v_v4TexCoord = lightViewProjection * modelMatrix * frag_position;
-       highp float value = 100.0 - v_v4TexCoord.z;
-       highp float v = floor(value);
-       highp float f = value - v;
-       highp float vn = v * 0.01;
-        gl_FragColor = vec4(vn, f, 0.0, 1.0);
+        highp vec4 v_v4TexCoord =  modelMatrix * frag_position;
+        float normalizedDistance  = distance(frag_position.xyz,lightPosition.xyz) ;//v_v4TexCoord.z / v_v4TexCoord.w;
+//        normalizedDistance = (normalizedDistance + 1.0) / 2.0;
+        gl_FragColor = pack(normalizedDistance);
     } else {
-        highp vec4 v_v4TexCoord = biasMat * lightViewProjection * modelMatrix * frag_position;
+        highp vec4 v_v4TexCoord = lightViewProjection * modelMatrix * frag_position;
+        highp vec4 shadowMapPosition = v_v4TexCoord / v_v4TexCoord.w;
+        float s = (shadowMapPosition.s + 1.0) /2.0;
+        float t = (shadowMapPosition.t + 1.0) /2.0;
+        float distanceFromLight = unpack(texture2D(shadowMap, vec2(s,t)));
+        float currentDistance = distance(frag_position.xyz,lightPosition.xyz);
         
-        /* Draw main scene - read and compare shadow map. */
-        highp vec2 vfDepth = texture2DProj(shadowMap, v_v4TexCoord).xy;
-        highp float fDepth = (vfDepth.x * 100.0 + vfDepth.y);
-        /* Unpack the light distance. See how it is packed in the shadow.frag file. */
-        highp float fLDepth = (100.0 - v_v4TexCoord.z) + 0.1 - fDepth ;
-        highp float fLight = 1.0;
-        if(fDepth > 0.0 && fLDepth < 0.0)
-        {
-            fLight = 0.2;
-            /* Make sure there is no specular effect on obscured fragments. */
-//            intensitySpecular = 0.0;
+        float shadow = 1.0;
+        if (s >= 0.0 && s <=1.0 &&
+            t >= 0.0 && t <=1.0 ) {
+            if ( distanceFromLight <= currentDistance - 2.8 ) {
+                shadow = 0.5;
+            }
         }
+        
+        float bias = 0.0005;
+        
+        //1.0 = not in shadow (fragmant is closer to light than the value stored in shadow map)
+        //0.0 = in shadow
+//        float shadowSample = float(distanceFromLight > shadowMapPosition.z);
+//        float shadow = 1.0;
+//        if (v_v4TexCoord.w > 0.0) {
+//            shadow = shadowSample;
+//            shadow = shadow * 0.8 + 0.2;
+//        }
+        
+        
         
         highp vec3 eyePosition = vec3(viewProjection * modelMatrix * frag_position);
         highp vec3 eyeNormal = normalize(normalMatrix * frag_normal);
@@ -67,14 +100,14 @@ void main()
         
         
         highp vec4 surfaceColor = texture2D( diffuseMap,frag_uv ) + diffuse;
-        highp vec3 ambientColor = ambient.rgb;
+        highp vec3 ambientColor = ambient.rgb * surfaceColor.rgb;
         
         highp vec3 eyeReverseVec = normalize(vec3(0.0,0.0,0.0) - eyePosition);
         highp vec3 reflectLightVec = reflect(-normalize(eyeLightVec),eyeNormal);
         highp float cosAlpha = max(0.0 , dot( eyeReverseVec, reflectLightVec ));
-        highp vec3 specularColor = specular.rgb * lightColor.rgb * brightness * pow(cosAlpha,50.0) / pow(eyeLightDistance, 2.0);
+        highp vec3 specularColor = specular.rgb * lightColor.rgb * pow(cosAlpha,2.0) / pow(eyeLightDistance, 2.0);
         
         highp vec3 finalColor = lightColor.rgb * surfaceColor.rgb * brightness / pow(eyeLightDistance, 2.0) + ambientColor + specularColor;
-        gl_FragColor = vec4(finalColor * fLight,surfaceColor.a);
+        gl_FragColor = vec4(finalColor * shadow,surfaceColor.a);
     }
 }
