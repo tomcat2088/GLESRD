@@ -39,9 +39,14 @@
 
     GLKView *view = (GLKView *)self.view;
     world = [[GLWorld alloc]initWithGLKView:view];
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"scene2" ofType:@".obj"];
-    [world addGeometry:[[GLWaveFrontGeometry alloc]initWithWaveFrontFilePath:filePath]];
-//    [world addGeometry:[GLPlaneGeometry new]];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ball" ofType:@".obj"];
+   [world addGeometry:[[GLWaveFrontGeometry alloc]initWithWaveFrontFilePath:filePath]];
+    
+    
+    GLPlaneGeometry *plane = [GLPlaneGeometry new];
+    plane.modelMatrix = GLKMatrix4MakeTranslation(0, -10,0);
+    plane.modelMatrix =  GLKMatrix4Scale(plane.modelMatrix, 100, 0, 100);
+    [world addGeometry:plane];
 }
 
 - (void)dealloc {

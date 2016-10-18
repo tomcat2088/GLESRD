@@ -27,11 +27,12 @@
 
 - (GLGeometryData)genGeometryData {
     GLGeometryData data;
+    size_t size = 10;
     const GLfloat vertex[4][9] = {
-        { -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,  0, 0 },
-        { -0.5f, 0.5f, 0.0f,  0.0f, 0.0f, 1.0f,  0, 1 },
-        { 0.5f, 0.5f, 0.0f,  0.0f, 0.0f, 1.0f,   1, 1 },
-        { 0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,  1, 0 }
+        { -0.5f * size, 0.0f, -0.5f * size,  0.0f, 0.0f, 1.0f,  0, 0 },
+        { -0.5f * size, 0.0f, 0.5f * size,  0.0f, 0.0f, 1.0f,  0, 1 },
+        { 0.5f * size, 0.0f, 0.5f * size,  0.0f, 0.0f, 1.0f,   1, 1 },
+        { 0.5f * size, 0.0f, -0.5f * size,  0.0f, 0.0f, 1.0f,  1, 0 }
     };
     glGenBuffers(1, &data.vertexVBO);
     glBindBuffer(GL_ARRAY_BUFFER, data.vertexVBO);
@@ -51,6 +52,11 @@
     data.vertexStride = sizeof(vertex[0]);
     data.supportIndiceVBO = YES;
     return data;
+}
+
+- (NSArray *)rigidBodys {
+    GLRigidBody *body = [[GLRigidBody alloc]initAsStaticPlane:100 geometry:self];
+    return @[body];
 }
 
 @end

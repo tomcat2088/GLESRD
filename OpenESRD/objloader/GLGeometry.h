@@ -13,6 +13,8 @@
 #import "GLDefines.h"
 #import "GLProgram.h"
 #import "GLMaterial.h"
+#import "GLPhysicsWorld.h"
+#import "GLRigidBody.h"
 
 @class GLWorld;
 
@@ -41,4 +43,5 @@ typedef struct {
 - (void)setupWithData:(GLGeometryData)data;
 - (void)draw;
 - (void)update:(NSTimeInterval)interval;
+- (NSArray *)rigidBodys;
 @end

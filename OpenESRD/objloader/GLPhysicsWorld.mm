@@ -11,6 +11,8 @@
 #import "btBulletCollisionCommon.h"
 
 #import "GLGeometry.h"
+#import "GLRigidBody.h"
+#import "GLTransform.h"
 
 @interface GLPhysicsWorld () {
     btDiscreteDynamicsWorld *world;
@@ -19,7 +21,7 @@
     btSequentialImpulseConstraintSolver *solver;
     btBroadphaseInterface *broadphase;
 }
-
+@property (strong, nonatomic) NSMutableArray *rigidBodies;
 @end
 
 @implementation GLPhysicsWorld
@@ -28,31 +30,45 @@
 {
     self = [super init];
     if (self) {
+        self.rigidBodies = [NSMutableArray new];
+        
         configration = new btDefaultCollisionConfiguration();
         dispatcher = new btCollisionDispatcher(configration);
         solver = new btSequentialImpulseConstraintSolver();
         broadphase = new btDbvtBroadphase();
         
         world = new btDiscreteDynamicsWorld(dispatcher,broadphase,solver,configration);
-        
-        world->setGravity(btVector3(0,-1,0));
-        world->addRigidBody([self createRigidbody:1]);
+        world->setGravity(btVector3(0,-10,0));
     }
     return self;
 }
 
-- (btRigidBody *)createRigidbody:(btScalar)mass {
-    btCollisionShape *shape = new btSphereShape(2.0);
-    btDefaultMotionState *motionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
-    btVector3 fallInertia(0,0,0);
-    shape->calculateLocalInertia(mass, fallInertia);
-    
-    btRigidBody *rigidBody = new btRigidBody(mass,motionState,shape,fallInertia);
-    return rigidBody;
+- (void)createRigidbody:(float)mass geometry:(GLGeometry *)geometry {
+    NSArray *bodies = [geometry rigidBodys];
+    for (GLRigidBody *body in bodies) {
+        world->addRigidBody(((btRigidBody *)[body rigidBody]));
+        [self.rigidBodies addObject:body];
+    }
 }
 
 - (void)update:(NSTimeInterval)interval {
     world->stepSimulation(interval);
+    
+    for (GLRigidBody *body in self.rigidBodies) {
+        if (body.geometry != nil) {
+            btMotionState *state = ((btRigidBody *)[body rigidBody])->getMotionState();
+            btTransform transform;
+            state->getWorldTransform(transform);
+            btScalar matrix[16];
+            transform.getOpenGLMatrix(matrix);
+            [body.geometry setModelMatrix:GLKMatrix4MakeWithArray(matrix)];
+        }
+    }
+}
+
+
+- (void)render:(CGRect)rect {
+    world->debugDrawWorld();
 }
 
 @end

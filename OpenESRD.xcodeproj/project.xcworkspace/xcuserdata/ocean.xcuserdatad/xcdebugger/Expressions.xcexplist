@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "::-[GLPhysicsWorld update:](NSTimeInterval):GLPhysicsWorld.mm">
+         <PersistentStrings>
+            <PersistentString
+               value = "body.geometry.modelMatrix">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "::-[GLGeometry draw]():GLGeometry.mm">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

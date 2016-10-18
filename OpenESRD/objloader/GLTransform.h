@@ -24,5 +24,4 @@
 @property (assign, nonatomic) GLfloat rotateZ;
 
 - (GLKMatrix4)matrix;
-
 @end

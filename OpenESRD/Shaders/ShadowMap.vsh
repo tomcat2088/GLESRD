@@ -18,11 +18,18 @@ uniform highp mat4 viewProjection;
 uniform highp mat4 modelMatrix;
 uniform highp mat3 normalMatrix;
 
+uniform lowp int renderAsShadow;
+
 void main()
 {
     frag_uv = uv;
     frag_position = position;
     frag_normal = normal;
     
-    gl_Position = viewProjection * modelMatrix * position;
+    if (renderAsShadow == 0) {
+        gl_Position = viewProjection * modelMatrix * position;
+    } else {
+        gl_Position = viewProjection * modelMatrix * position;
+    }
+    
 }

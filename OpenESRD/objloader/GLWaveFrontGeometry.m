@@ -51,6 +51,7 @@
         geometry.lightViewProjection = self.lightViewProjection;
 //        geometry.material.diffuseMap = self.material.diffuseMap;
         geometry.material.shadowMap = self.material.shadowMap;
+//        geometry.modelMatrix = self.modelMatrix;
         [geometry draw];
     }
 }
@@ -60,5 +61,18 @@
         [geometry update:interval];
     }
 }
+
+- (NSArray *)rigidBodys {
+    NSMutableArray *bodies = [NSMutableArray new];
+    
+    for (GLGeometry *geometry in self.geometries) {
+        GLRigidBody *body = [[GLRigidBody alloc]initAsSphere:1 mass:1 geometry:geometry];
+//        GLRigidBody *body = [[GLRigidBody alloc]initAsStaticPlane:100 geometry:geometry];
+        [bodies addObject:body];
+    }
+    
+    return [bodies copy];
+}
+
 
 @end

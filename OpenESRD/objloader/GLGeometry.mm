@@ -50,6 +50,11 @@
     self.material = [GLMaterial new];
     [self createTexture];
     [self setupVAO];
+    [self setupTransform];
+}
+
+- (void)setupDefaultMaterial {
+    
 }
 
 - (void)setupVAO {
@@ -75,6 +80,23 @@
     }
 
     glBindVertexArrayOES(0);
+}
+
+- (void)setupTransform {
+    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
+    baseModelViewMatrix = GLKMatrix4Scale(baseModelViewMatrix, 1.0f, 1.0f, 1.0f);
+
+    
+    // Compute the model view matrix for the object rendered with GLKit
+    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
+    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 0.0f, 1.0f, 0.0f);
+    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+    
+    GLKMatrix4 mvp = GLKMatrix4Multiply(self.viewProjection, modelViewMatrix);
+    GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
+    
+    self.normalMatrix = normalMatrix;
+    self.modelMatrix = modelViewMatrix;
 }
 
 - (void)createTexture {
@@ -117,19 +139,6 @@
 }
 
 - (void)update:(NSTimeInterval)interval {
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
-    baseModelViewMatrix = GLKMatrix4Scale(baseModelViewMatrix, 1.0f, 1.0f, 1.0f);
-
-    // Compute the model view matrix for the object rendered with GLKit
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 0.0f, 1.0f, 0.0f);
-    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-
-    GLKMatrix4 mvp = GLKMatrix4Multiply(self.viewProjection, modelViewMatrix);
-    GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
-
-    self.normalMatrix = normalMatrix;
-    self.modelMatrix = modelViewMatrix;
 
     //rotation += interval * 0.8f;
 
@@ -141,7 +150,10 @@
             elapsedTime = 0;
         }
     }
+}
 
+- (NSArray *)rigidBodys {
+    return [NSArray new];
 }
 
 @end

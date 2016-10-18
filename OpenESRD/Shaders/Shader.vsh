@@ -14,9 +14,12 @@ varying highp vec4 frag_position;
 varying highp vec3 frag_normal;
 varying lowp vec2 frag_uv;
 
+uniform highp mat4 lightViewProjection;
 uniform highp mat4 viewProjection;
 uniform highp mat4 modelMatrix;
 uniform highp mat3 normalMatrix;
+
+uniform lowp int renderAsShadow;
 
 void main()
 {
