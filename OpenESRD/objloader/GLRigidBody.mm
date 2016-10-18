@@ -27,8 +27,7 @@
         shape->calculateLocalInertia(mass, fallInertia);
         
         rigidBody = new btRigidBody(mass,motionState,shape,fallInertia);
-        rigidBody->setRestitution(10);
-        rigidBody->setDamping(0.3, 0.3);
+        rigidBody->setRestitution(.4);
         self.geometry = geometry;
     }
     return self;
@@ -40,9 +39,9 @@
     if (self) {
         btCollisionShape *shape = new btStaticPlaneShape(btVector3(0,1,0),1);
         shape->setUserPointer((__bridge void *)self);
-        btDefaultMotionState *motionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,-1,0)));
+        btDefaultMotionState *motionState = new btDefaultMotionState(btTransform(btQuaternion(btVector3(1,0,0),0.0 *M_PI / 180.0),btVector3(0,-1,0)));
         rigidBody = new btRigidBody(0,motionState,shape,btVector3(0,0,0));
-        
+        rigidBody->setRestitution(1);
         self.geometry = geometry;
     }
     return self;
