@@ -11,6 +11,7 @@
 #import "GLLight.h"
 #import "GLPlaneGeometry.h"
 #import "UIImage+GL.h"
+#import "GLPhysicsWorld.h"
 
 @interface GLWorld ()
 
@@ -22,7 +23,6 @@
 @property (assign, nonatomic) GLuint shadowFramebuffer;
 @property (assign, nonatomic) GLuint shadowTexture;
 @property (assign, nonatomic) GLuint testTexture;
-
 
 @end
 
@@ -65,6 +65,8 @@
 
         self.projector = [[GLPlaneGeometry alloc] initWithVertexShader:@"ShadowMap" fragmentShader:@"ShadowMap"];
         self.projector.world = self;
+        
+        self.physicsWorld = [GLPhysicsWorld new];
     }
     return self;
 }
@@ -143,6 +145,7 @@
 }
 
 - (void)update:(NSTimeInterval)interval {
+    [self.physicsWorld update:interval];
     [self.light update:interval];
     for (GLGeometry *geometry in self.geometrys) {
         [geometry update:interval];

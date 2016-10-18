@@ -12,6 +12,7 @@
 
 @class GLGeometry;
 @class GLLight;
+@class GLPhysicsWorld;
 
 @interface GLWorld : NSObject
 
@@ -19,6 +20,7 @@
 @property (assign, nonatomic) GLKMatrix4 viewProjection;
 @property (strong, nonatomic) GLLight *light;
 @property (assign, nonatomic) GLKMatrix4 lightViewProjection;
+@property (strong, nonatomic) GLPhysicsWorld *physicsWorld;
 
 @property (assign, nonatomic) CGFloat angleY;
 @property (assign, nonatomic) CGFloat angleX;
