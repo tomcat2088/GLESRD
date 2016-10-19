@@ -17,6 +17,7 @@
 
 - (instancetype)initAsSphere:(float)radius mass:(float)mass geometry:(GLGeometry *)geometry;
 - (instancetype)initAsStaticPlane:(float)size geometry:(GLGeometry *)geometry;
+- (void)sync;
 - (void *)rigidBody;
 
 @end

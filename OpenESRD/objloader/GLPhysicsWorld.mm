@@ -56,12 +56,7 @@
     
     for (GLRigidBody *body in self.rigidBodies) {
         if (body.geometry != nil) {
-            btMotionState *state = ((btRigidBody *)[body rigidBody])->getMotionState();
-            btTransform transform;
-            state->getWorldTransform(transform);
-            btScalar matrix[16];
-            transform.getOpenGLMatrix(matrix);
-            [body.geometry setModelMatrix:GLKMatrix4MakeWithArray(matrix)];
+            [body sync];
         }
     }
 }

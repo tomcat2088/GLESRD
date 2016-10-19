@@ -15,6 +15,7 @@
 #import "GLMaterial.h"
 #import "GLPhysicsWorld.h"
 #import "GLRigidBody.h"
+#import "GLTransform.h"
 
 @class GLWorld;
 
@@ -33,9 +34,8 @@ typedef struct {
 
 @property (assign, nonatomic) GLKMatrix4 viewProjection;
 @property (assign, nonatomic) GLKMatrix4 lightViewProjection;
-@property (assign, nonatomic) GLKMatrix4 modelMatrix;
-@property (assign, nonatomic) GLKMatrix3 normalMatrix;
 @property (strong, nonatomic) GLMaterial *material;
+@property (strong, nonatomic) GLTransform *transform;
 
 @property (assign, nonatomic) BOOL renderAsShadow;
 

@@ -25,6 +25,9 @@
 
 @property (copy, nonatomic) NSString *vertexShader;
 @property (copy, nonatomic) NSString *fragmentShader;
+
+@property (assign, nonatomic) GLKMatrix4 modelMatrix;
+@property (assign, nonatomic) GLKMatrix3 normalMatrix;
 @end
 
 @implementation GLGeometry
@@ -83,20 +86,7 @@
 }
 
 - (void)setupTransform {
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
-    baseModelViewMatrix = GLKMatrix4Scale(baseModelViewMatrix, 1.0f, 1.0f, 1.0f);
-
-    
-    // Compute the model view matrix for the object rendered with GLKit
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, rotation, 0.0f, 1.0f, 0.0f);
-    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-    
-    GLKMatrix4 mvp = GLKMatrix4Multiply(self.viewProjection, modelViewMatrix);
-    GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
-    
-    self.normalMatrix = normalMatrix;
-    self.modelMatrix = modelViewMatrix;
+    self.transform = [GLTransform new];
 }
 
 - (void)createTexture {
@@ -150,6 +140,16 @@
             elapsedTime = 0;
         }
     }
+}
+
+- (GLKMatrix4)modelMatrix {
+    return [self.transform matrix];
+}
+
+- (GLKMatrix3)normalMatrix {
+    GLKMatrix4 mvp = GLKMatrix4Multiply(self.viewProjection, self.modelMatrix);
+    GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
+    return normalMatrix;
 }
 
 - (NSArray *)rigidBodys {

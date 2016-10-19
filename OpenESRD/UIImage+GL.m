@@ -36,6 +36,10 @@
     return textureData;
 }
 
++ (GLuint)textureNamed:(NSString *)imageName {
+    return [self textureFromCGImage:[UIImage imageNamed:imageName].CGImage];
+}
+
 + (GLuint)textureFromCGImage:(CGImageRef)imageRef {
     size_t width = 128;//CGImageGetWidth(imageRef);
     size_t height = 128;//CGImageGetHeight(imageRef);

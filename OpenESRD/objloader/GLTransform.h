@@ -19,9 +19,9 @@
 @property (assign, nonatomic) GLfloat scaleY;
 @property (assign, nonatomic) GLfloat scaleZ;
 
-@property (assign, nonatomic) GLfloat rotateX;
-@property (assign, nonatomic) GLfloat rotateY;
-@property (assign, nonatomic) GLfloat rotateZ;
+@property (assign, nonatomic) GLKQuaternion quaternion;
 
 - (GLKMatrix4)matrix;
+- (void)applyOpenGLMatrix:(GLfloat *)openGLMatrix; 
+
 @end

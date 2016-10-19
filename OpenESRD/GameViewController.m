@@ -40,12 +40,14 @@
     GLKView *view = (GLKView *)self.view;
     world = [[GLWorld alloc]initWithGLKView:view];
     NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ball2" ofType:@".obj"];
-   [world addGeometry:[[GLWaveFrontGeometry alloc]initWithWaveFrontFilePath:filePath]];
+    [world addGeometry:[[GLWaveFrontGeometry alloc]initWithWaveFrontFilePath:filePath]];
     
     
     GLPlaneGeometry *plane = [GLPlaneGeometry new];
-    plane.modelMatrix = GLKMatrix4MakeTranslation(0, -10,0);
-    plane.modelMatrix =  GLKMatrix4Scale(plane.modelMatrix, 100, 0, 100);
+    plane.transform.translateY = -5;
+    plane.transform.scaleX = 10;
+    plane.transform.scaleZ = 10;
+    plane.transform.quaternion = GLKQuaternionMakeWithAngleAndAxis(10 / 180.0 * M_PI, 0, 0, 1);
     [world addGeometry:plane];
 }
 
