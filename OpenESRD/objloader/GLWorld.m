@@ -51,7 +51,7 @@
         float aspect = fabs(size.width / size.height);
         self.viewProjection = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
 //        self.viewProjection = GLKMatrix4MakeFrustum(-aspect, aspect, -1, 1, 0.1, 1000);
-        GLKMatrix4 cameraLookAt = GLKMatrix4MakeLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
+        GLKMatrix4 cameraLookAt = GLKMatrix4MakeLookAt(0, 20, 20, 0, 0, 0, 0, 1, 0);
         self.viewProjection = GLKMatrix4Multiply(self.viewProjection, cameraLookAt);
         self.originViewProjection = self.viewProjection;
 
